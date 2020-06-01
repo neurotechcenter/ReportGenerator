@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?><!--<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook V4.2//EN'>-->
+<!--Created by: Report Generator v2.3.1, MathWorks Inc.-->
+<!--A report which demonstrates advanced component types:
+
+* Loops
+* Property Tables
+* Summary Tables
+
+-->
+<book lang="en">
+   <title>The Figure Loop</title><?dbhtml filename="figloop-tutorial.html"?>
+   <bookinfo>
+      <title>The Figure Loop</title>
+      <subtitle>A Tutorial</subtitle>
+      <author>
+         <firstname>MathWorks</firstname>
+      </author>
+      <pubdate>17-May-2005 08:24:47</pubdate>
+      <abstract>
+         <para>The Figure Loop produces a report which documents multiple figure windows.  Each time the Figure Loop component runs, it reports on a different figure.</para>
+      </abstract>
+   </bookinfo>
+   <chapter><?dbhtml filename="figloop-tutorial-001.html"?>
+      <title>Code for Creating Figures</title>
+      <mwsh:code xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd" xml:space="preserve">
+         <mwsh:keywords xml:space="preserve">function</mwsh:keywords> hList=figloopfigures
+<mwsh:comments xml:space="preserve">%FIGLOOPFIGURES creates figures for figloop-tutorial.rpt</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   FIGLOOPFIGURES creates five figures which are used by</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   the Report Generator setup file "figloop-tutorial.rpt".</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   To run this tutorial, type "setedit figloop-tutorial"</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   at the command prompt.</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure 1: Membrane Data</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure 2: Invisible Membrane Data</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure 3: An Application</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure 4: An Invisible Application</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure 5: Peaks Data</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figures 2 and 4 are invisible.</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figures 3 and 4 have HandleVisibility='off'</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   Figure  5 is the current figure</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   FIGLOOPFIGURES deletes any existing figures which have</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%   tag 'peaks' 'app' or 'membrane'</mwsh:comments>
+
+         <mwsh:comments xml:space="preserve">%   Copyright 1997-2004 MathWorks, Inc.</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%     </mwsh:comments>
+
+         <mwsh:comments xml:space="preserve">%delete existing figures with used tag names</mwsh:comments>
+allFigs=allchild(0);
+delete([findall(allFigs,<mwsh:strings xml:space="preserve">'flat'</mwsh:strings>,<mwsh:strings xml:space="preserve">'tag'</mwsh:strings>,<mwsh:strings xml:space="preserve">'membrane'</mwsh:strings>);<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+   findall(allFigs,<mwsh:strings xml:space="preserve">'flat'</mwsh:strings>,<mwsh:strings xml:space="preserve">'tag'</mwsh:strings>,<mwsh:strings xml:space="preserve">'peaks'</mwsh:strings>);<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+   findall(allFigs,<mwsh:strings xml:space="preserve">'flat'</mwsh:strings>,<mwsh:strings xml:space="preserve">'tag'</mwsh:strings>,<mwsh:strings xml:space="preserve">'app'</mwsh:strings>)]);
+figName={<mwsh:strings xml:space="preserve">'Membrane Data'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'Invisible Membrane Data'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'An Application'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'An Invisible Application'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'Peaks Data'</mwsh:strings>};
+figTag={<mwsh:strings xml:space="preserve">'membrane'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'membrane'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'app'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'app'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'peaks'</mwsh:strings>};
+figVisible={<mwsh:strings xml:space="preserve">'on'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'off'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'on'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'off'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'on'</mwsh:strings>};
+figHandleVisible={<mwsh:strings xml:space="preserve">'on'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'on'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'off'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'off'</mwsh:strings>
+         <mwsh:strings xml:space="preserve">'on'</mwsh:strings>};
+<mwsh:keywords xml:space="preserve">for</mwsh:keywords> i=1:length(figName)
+   hList(i)=figure(<mwsh:strings xml:space="preserve">'Name'</mwsh:strings>,figName{i},<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Tag'</mwsh:strings>,figTag{i},<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'HandleVisibility'</mwsh:strings>,figHandleVisible{i},<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Visible'</mwsh:strings>,<mwsh:strings xml:space="preserve">'off'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Units'</mwsh:strings>,<mwsh:strings xml:space="preserve">'points'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[90+30*i 230-30*i 200 200]);
+<mwsh:keywords xml:space="preserve">end</mwsh:keywords>
+
+LocalMakeMembrane(hList(1));
+LocalMakeMembrane(hList(2));
+LocalMakeApplication(hList(3),<mwsh:strings xml:space="preserve">'Push Me'</mwsh:strings>);
+LocalMakeApplication(hList(4),<mwsh:strings xml:space="preserve">'Invisible'</mwsh:strings>);
+LocalMakePeaks(hList(5));
+
+set(hList,{<mwsh:strings xml:space="preserve">'Visible'</mwsh:strings>},figVisible);
+set(0,<mwsh:strings xml:space="preserve">'CurrentFigure'</mwsh:strings>,hList(5));
+
+drawnow
+
+<mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:keywords xml:space="preserve">function</mwsh:keywords> LocalMakeMembrane(h)
+ax=axes(<mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,h,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Xlim'</mwsh:strings>,[0 31],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Ylim'</mwsh:strings>,[0 31],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Xgrid'</mwsh:strings>,<mwsh:strings xml:space="preserve">'on'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Ygrid'</mwsh:strings>,<mwsh:strings xml:space="preserve">'on'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Zgrid'</mwsh:strings>,<mwsh:strings xml:space="preserve">'on'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'View'</mwsh:strings>,[-37.5 35]);
+surface(membrane,<mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,ax);
+
+<mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:keywords xml:space="preserve">function</mwsh:keywords> LocalMakeApplication(h,btnString)
+
+figWd=200;
+figHt=200;
+btn=uicontrol(<mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,h,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'String'</mwsh:strings>,btnString,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'FontSize'</mwsh:strings>,18,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Units'</mwsh:strings>,<mwsh:strings xml:space="preserve">'points'</mwsh:strings>);
+btnExtent=get(btn,<mwsh:strings xml:space="preserve">'Extent'</mwsh:strings>);
+btnHt=btnExtent(4)+10;
+btnWd=btnExtent(3)+10;
+
+cbString=sprintf(<mwsh:strings xml:space="preserve">'set(gcbo,''Position'',[rand(1)*%0.2g rand(1)*%0.2g %0.2g %0.2g])'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+   figWd-btnWd-10,figHt-btnHt-10,btnWd,btnHt);
+
+set(btn,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[10 10 btnWd btnHt],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Callback'</mwsh:strings>,cbString);
+
+<mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:comments xml:space="preserve">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</mwsh:comments>
+         <mwsh:keywords xml:space="preserve">function</mwsh:keywords> LocalMakePeaks(h)
+
+pSize=49;
+pData=peaks(pSize);
+
+ax=axes(<mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,h,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'View'</mwsh:strings>,[-37.5 30],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Visible'</mwsh:strings>,<mwsh:strings xml:space="preserve">'off'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Xlim'</mwsh:strings>,[0 pSize],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Ylim'</mwsh:strings>,[0 pSize],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Zlim'</mwsh:strings>,[min(min(pData)) max(max(pData))],<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Units'</mwsh:strings>,<mwsh:strings xml:space="preserve">'normalized'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Position'</mwsh:strings>,[0 0 1 1]);
+surface(pData,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,ax,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'FaceLighting'</mwsh:strings>,<mwsh:strings xml:space="preserve">'gouraud'</mwsh:strings>,<mwsh:keywords xml:space="preserve">...</mwsh:keywords>
+         <mwsh:strings xml:space="preserve">'edgecolor'</mwsh:strings>,<mwsh:strings xml:space="preserve">'none'</mwsh:strings>);
+light(<mwsh:strings xml:space="preserve">'Parent'</mwsh:strings>,ax);</mwsh:code>
+      <table colsep="1" frame="all" pgwide="1" rowsep="1">
+         <title>Figure Properties</title>
+         <tgroup cols="4">
+            <colspec colname="1" colnum="1" colwidth="3000*"/>
+            <colspec colname="2" colnum="2" colwidth="2000*"/>
+            <colspec colname="3" colnum="3" colwidth="1000*"/>
+            <colspec colname="4" colnum="4" colwidth="1000*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Tag</entry>
+                  <entry>Visible</entry>
+                  <entry>HandleVisibility</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <link linkend="hg-Figure-1.00000000000000">Membrane Data</link>
+                  </entry>
+                  <entry>membrane</entry>
+                  <entry>on</entry>
+                  <entry>on</entry>
+               </row>
+               <row>
+                  <entry>
+                     <link linkend="hg-Figure-2.00000000000000">Invisible Membrane Data</link>
+                  </entry>
+                  <entry>membrane</entry>
+                  <entry>off</entry>
+                  <entry>on</entry>
+               </row>
+               <row>
+                  <entry>
+                     <link linkend="hg-Figure-3.00000000000000">An Application</link>
+                  </entry>
+                  <entry>app</entry>
+                  <entry>on</entry>
+                  <entry>off</entry>
+               </row>
+               <row>
+                  <entry>
+                     <link linkend="hg-Figure-4.00000000000000">An Invisible Application</link>
+                  </entry>
+                  <entry>app</entry>
+                  <entry>off</entry>
+                  <entry>off</entry>
+               </row>
+               <row>
+                  <entry>
+                     <link linkend="hg-Figure-5.00000000000000">Peaks Data</link>
+                  </entry>
+                  <entry>peaks</entry>
+                  <entry>on</entry>
+                  <entry>on</entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </chapter>
+   <chapter><?dbhtml filename="figloop-tutorial-002.html"?>
+      <title>Figures in Report</title>
+      <sect1><?dbhtml filename="figloop-tutorial-003.html"?>
+         <title>
+            <anchor id="hg-Figure-1.00000000000000"/>Membrane Data</title>
+         <graphic fileref="./figloop-tutorial_html_files/image-001-hg.png"/>
+         <informaltable colsep="1" frame="all" pgwide="1" rowsep="1">
+            <tgroup cols="2">
+               <colspec colname="1" colnum="1" colwidth="66000*"/>
+               <colspec colname="2" colnum="2" colwidth="134000*"/>
+               <tbody>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">
+                        <emphasis>Name</emphasis>
+                     </entry>
+                     <entry align="left" colsep="1" rowsep="1">Membrane Data</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">HandleVisibility</entry>
+                     <entry align="left" colsep="1" rowsep="1">on</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Tag</entry>
+                     <entry align="left" colsep="1" rowsep="1">membrane</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Visible</entry>
+                     <entry align="left" colsep="1" rowsep="1">on</entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </informaltable>
+      </sect1>
+      <sect1><?dbhtml filename="figloop-tutorial-004.html"?>
+         <title>
+            <anchor id="hg-Figure-2.00000000000000"/>Invisible Membrane Data</title>
+         <graphic fileref="./figloop-tutorial_html_files/image-002-hg.png"/>
+         <informaltable colsep="1" frame="all" pgwide="1" rowsep="1">
+            <tgroup cols="2">
+               <colspec colname="1" colnum="1" colwidth="66000*"/>
+               <colspec colname="2" colnum="2" colwidth="134000*"/>
+               <tbody>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">
+                        <emphasis>Name</emphasis>
+                     </entry>
+                     <entry align="left" colsep="1" rowsep="1">Invisible Membrane Data</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">HandleVisibility</entry>
+                     <entry align="left" colsep="1" rowsep="1">on</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Tag</entry>
+                     <entry align="left" colsep="1" rowsep="1">membrane</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Visible</entry>
+                     <entry align="left" colsep="1" rowsep="1">off</entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </informaltable>
+      </sect1>
+      <sect1><?dbhtml filename="figloop-tutorial-005.html"?>
+         <title>
+            <anchor id="hg-Figure-3.00000000000000"/>An Application</title>
+         <graphic fileref="./figloop-tutorial_html_files/image-003-hg.png"/>
+         <informaltable colsep="1" frame="all" pgwide="1" rowsep="1">
+            <tgroup cols="2">
+               <colspec colname="1" colnum="1" colwidth="66000*"/>
+               <colspec colname="2" colnum="2" colwidth="134000*"/>
+               <tbody>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">
+                        <emphasis>Name</emphasis>
+                     </entry>
+                     <entry align="left" colsep="1" rowsep="1">An Application</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">HandleVisibility</entry>
+                     <entry align="left" colsep="1" rowsep="1">off</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Tag</entry>
+                     <entry align="left" colsep="1" rowsep="1">app</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Visible</entry>
+                     <entry align="left" colsep="1" rowsep="1">on</entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </informaltable>
+      </sect1>
+      <sect1><?dbhtml filename="figloop-tutorial-006.html"?>
+         <title>
+            <anchor id="hg-Figure-4.00000000000000"/>An Invisible Application</title>
+         <graphic fileref="./figloop-tutorial_html_files/image-004-hg.png"/>
+         <informaltable colsep="1" frame="all" pgwide="1" rowsep="1">
+            <tgroup cols="2">
+               <colspec colname="1" colnum="1" colwidth="66000*"/>
+               <colspec colname="2" colnum="2" colwidth="134000*"/>
+               <tbody>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">
+                        <emphasis>Name</emphasis>
+                     </entry>
+                     <entry align="left" colsep="1" rowsep="1">An Invisible Application</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">HandleVisibility</entry>
+                     <entry align="left" colsep="1" rowsep="1">off</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Tag</entry>
+                     <entry align="left" colsep="1" rowsep="1">app</entry>
+                  </row>
+                  <row>
+                     <entry align="right" colsep="1" rowsep="1">Visible</entry>
+                     <entry align="left" colsep="1" rowsep="1">off</entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </informaltable>
+      </sect1>
+   </chapter>
+</book>

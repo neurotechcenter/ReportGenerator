@@ -1,0 +1,141 @@
+  <!doctype html>
+  <html>
+  <head>
+      <title>Report</title>
+      
+      <style>/*<![CDATA[*/ 
+/* 
+    text-align:     defines the HAlign format.
+                    The supported values are left, right and center 
+                
+    font-weight:    defines the Bold format.
+                    The supported values are normal and bold
+                    
+    font-style:     defines the Italic format.
+                    The supported values are normal and italic    
+
+    For units use pt without any whitespace between the number and the unit.
+
+ */
+
+p.TitlePageTitle {
+    margin-top: 19pt;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 24pt;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center; 
+    margin-bottom: 10pt;
+}
+
+p.TitlePageSubtitle {
+    margin-top: 16pt;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center; 
+}
+
+p.TitlePageAuthor {
+    margin-top: 11pt;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center; 
+}
+
+p.TitlePageImage {
+    text-align: center;
+    margin-bottom: 10pt;
+}
+
+p.TitlePagePublisher {
+    margin-top: 10pt;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 10pt;
+    text-align: center; 
+}
+
+p.TitlePagePubDate {
+    margin-top: 10pt;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 10pt;
+    text-align: center; 
+}
+  
+      /*]]>*/</style>
+  
+  </head>
+  
+  <body> 
+  <dplibrary>
+    <dptemplate name="TitlePageTitle">
+        <p class="TitlePageTitle"><hole id="Content">TITLE</hole></p>
+    </dptemplate>
+
+    <dptemplate name="TitlePageSubtitle">
+        <p class="TitlePageSubtitle"><hole id="Content">SUBTITLE</hole></p>
+    </dptemplate>
+
+    <dptemplate name="TitlePageImage">
+        <p class="TitlePageImage"><hole id="Content">IMAGE</hole></p>
+    </dptemplate>
+
+    <dptemplate name="TitlePageAuthor">
+        <p class="TitlePageAuthor"><hole id="Content">AUTHOR</hole></p>
+    </dptemplate>
+
+    <dptemplate name="TitlePagePublisher">
+        <p class="TitlePagePublisher"><hole id="Content">PUBLISHER</hole></p>
+    </dptemplate>
+
+    <dptemplate name="TitlePagePubDate">
+        <p class="TitlePagePubDate"><hole id="Content">PUBLICATION_DATE</hole></p>
+    </dptemplate>
+
+    <!-- NOTE: temporary in the template library until the DOM supports a source without template name -->      
+    <dptemplate name="TitlePage">
+        <layout style="page-margin: 0.5in 1in 0.5in 1in 0.5in 0.5in 0in; page-size: 8.5in 11in portrait">
+        </layout>
+
+        <!-- filled with TitlePageTitle template. See docpart_templates.html -->
+        <hole id="Title">TITLE</hole> 
+
+        <!-- filled with TitlePageSubtitle template. See docpart_templates.html  -->
+        <hole id="Subtitle">SUBTITLE</hole> 
+
+        <!-- filled with TitlePageImage template. See docpart_templates.html  -->
+        <hole id="Image">IMAGE</hole> 
+
+        <!-- filled with TitlePageAuthor template. See docpart_templates.html  -->
+        <hole id="Author">AUTHOR</hole> 
+
+        <!-- filled with TitlePagePublisher template. See docpart_templates.html  -->
+        <hole id="Publisher">PUBLISHER</hole> 
+
+        <!-- filled with TitlePagePubDate template. See docpart_templates.html  -->
+        <hole id="PubDate">PUBLICATION_DATE</hole> 
+    </dptemplate>
+    
+  </dplibrary>
+
+    <!-- filled with TitlePageTitle template. See docpart_templates.html -->
+    <hole id="Title">TITLE</hole> 
+
+    <!-- filled with TitlePageSubtitle template. See docpart_templates.html  -->
+    <hole id="Subtitle">SUBTITLE</hole> 
+
+    <!-- filled with TitlePageImage template. See docpart_templates.html  -->
+    <hole id="Image">IMAGE</hole> 
+
+    <!-- filled with TitlePageAuthor template. See docpart_templates.html  -->
+    <hole id="Author">AUTHOR</hole> 
+
+    <!-- filled with TitlePagePublisher template. See docpart_templates.html  -->
+    <hole id="Publisher">PUBLISHER</hole> 
+
+    <!-- filled with TitlePagePubDate template. See docpart_templates.html  -->
+    <hole id="PubDate">PUBLICATION_DATE</hole> 
+
+  </body>
+  </html>

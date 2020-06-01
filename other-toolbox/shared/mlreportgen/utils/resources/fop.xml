@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<fop version="1.0">
+  <!-- Source resolution in dpi (dots/pixels per inch) for determining the size of pixels in SVG and bitmap images, default: 96dpi -->
+  <source-resolution>96</source-resolution>
+  <!-- Target resolution in dpi (dots/pixels per inch) for specifying the target resolution for generated bitmaps, default: 96dpi -->
+  <target-resolution>600</target-resolution>
+  
+  <!-- Default page-height and page-width, in case
+       value is specified as auto -->
+  <default-page-settings height="11in" width="8.26in"/>
+ 
+  <!-- Information for specific renderers -->
+  <!-- Uses renderer mime type for renderers -->
+  <renderers>
+    <renderer mime="application/pdf">
+      <filterList>
+        <value>flate</value>
+      </filterList>
+
+      <fonts>
+        <!-- embedded fonts -->
+        <!--
+        This information must exactly match the font specified
+        in the fo file. Otherwise it will use a default font.
+
+        For example,
+        <fo:inline font-family="Arial" font-weight="bold" font-style="normal">
+            Arial-normal-normal font
+        </fo:inline>
+        for the font triplet specified by:
+        <font-triplet name="Arial" style="normal" weight="bold"/>
+
+        If you do not want to embed the font in the pdf document
+        then do not include the "embed-url" attribute.
+        The font will be needed where the document is viewed
+        for it to be displayed properly.
+
+        possible styles: normal | italic | oblique | backslant
+        possible weights: normal | bold | 100 | 200 | 300 | 400
+                          | 500 | 600 | 700 | 800 | 900
+        (normal = 400, bold = 700)
+        -->
+
+        <!--
+        <font metrics-url="arial.xml" kerning="yes" embed-url="arial.ttf">
+          <font-triplet name="Arial" style="normal" weight="normal"/>
+          <font-triplet name="ArialMT" style="normal" weight="normal"/>
+        </font>
+        <font metrics-url="arialb.xml" kerning="yes" embed-url="arialb.ttf">
+          <font-triplet name="Arial" style="normal" weight="bold"/>
+          <font-triplet name="ArialMT" style="normal" weight="bold"/>
+        </font>
+        -->
+
+        <!-- The next line adds a specific directory to search for fonts.  Any font file dropped 
+             into this directory will be found and used by Report Generator.  Ideally, this would be
+             a relative directory and the font-base setting (made programmatically at runtime) would 
+             indicate where the root path is.  However, a FOP bug prevents relative directory names 
+             from being correctly mapped to the base directory.  As a workaround, we introduce the
+             $tempdir and $matlabroot macros which are resolved at runtime and mapped appropriately -->
+        <directory>$tempdir/rptgenFonts</directory>
+
+        <!-- For Noto Sans CJK font, redirect all styles to regular -->
+        <font kerning="yes" embed-url="matlabfile:toolbox/shared/mlreportgen/dom/resources/fonts/NotoSansCJKjp-Regular.otf">
+            <font-triplet name="Noto Sans CJK JP" style="normal" weight="normal"/>
+            <font-triplet name="Noto Sans CJK JP" style="normal" weight="400"/>
+            <font-triplet name="Noto Sans CJK JP" style="normal" weight="700"/>
+            <font-triplet name="Noto Sans CJK JP" style="italic" weight="normal"/>
+            <font-triplet name="Noto Sans CJK JP" style="italic" weight="400"/>
+            <font-triplet name="Noto Sans CJK JP" style="italic" weight="700"/>
+            
+            <font-triplet name="Noto Sans CJK SC" style="normal" weight="normal"/>
+            <font-triplet name="Noto Sans CJK SC" style="normal" weight="400"/>
+            <font-triplet name="Noto Sans CJK SC" style="normal" weight="700"/>
+            <font-triplet name="Noto Sans CJK SC" style="italic" weight="normal"/>
+            <font-triplet name="Noto Sans CJK SC" style="italic" weight="400"/>
+            <font-triplet name="Noto Sans CJK SC" style="italic" weight="700"/>
+            
+            <font-triplet name="Noto Sans CJK TC" style="normal" weight="normal"/>
+            <font-triplet name="Noto Sans CJK TC" style="normal" weight="400"/>
+            <font-triplet name="Noto Sans CJK TC" style="normal" weight="700"/>
+            <font-triplet name="Noto Sans CJK TC" style="italic" weight="normal"/>
+            <font-triplet name="Noto Sans CJK TC" style="italic" weight="400"/>
+            <font-triplet name="Noto Sans CJK TC" style="italic" weight="700"/>
+
+            <font-triplet name="Noto Sans CJK KR" style="normal" weight="normal"/>
+            <font-triplet name="Noto Sans CJK KR" style="normal" weight="400"/>
+            <font-triplet name="Noto Sans CJK KR" style="normal" weight="700"/>
+            <font-triplet name="Noto Sans CJK KR" style="italic" weight="normal"/>
+            <font-triplet name="Noto Sans CJK KR" style="italic" weight="400"/>
+            <font-triplet name="Noto Sans CJK KR" style="italic" weight="700"/>
+        </font>
+         
+      </fonts>
+    </renderer>
+  </renderers>
+</fop>

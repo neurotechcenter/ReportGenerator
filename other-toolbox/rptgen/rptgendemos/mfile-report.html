@@ -1,0 +1,112 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>peaks Documentation</title><meta name="generator" content="DocBook XSL Stylesheets V1.64.1"><meta name="description" content=" PEAKS  A sample function of two variables.     PEAKS is a&#xA;            function of two variables, obtained by translating and&#xA;            scaling Gaussian distributions, which is useful for&#xA;            demonstrating     MESH, SURF, PCOLOR, CONTOUR, etc.&#xA;            There are several variants of the calling sequence:&#xA;            Z = PEAKS;         Z = PEAKS(N);         Z = PEAKS(V);&#xA;            Z = PEAKS(X,Y);           PEAKS;         PEAKS(N);&#xA;            PEAKS(V);         PEAKS(X,Y);           [X,Y,Z] = PEAKS;&#xA;            [X,Y,Z] = PEAKS(N);         [X,Y,Z] = PEAKS(V);       The&#xA;            first variant produces a 49-by-49 matrix.     The second&#xA;            variant produces an N-by-N matrix.     The third variant&#xA;            produces an N-by-N matrix where N = length(V).     The&#xA;            fourth variant evaluates the function at the given X and Y,&#xA;            which must be the same size.  The resulting Z is also that&#xA;            size.       The next four variants, with no output&#xA;            arguments, do a SURF     plot of the result.       The last&#xA;            three variants also produce two matrices, X and Y, for&#xA;            use in commands such as PCOLOR(X,Y,Z) or&#xA;            SURF(X,Y,Z,DEL2(Z)).       If not given as input, the&#xA;            underlying matrices X and Y are         [X,Y] =&#xA;            MESHGRID(V,V)      where V is a given vector, or V is a&#xA;            vector of length N with     elements equally spaced from -3&#xA;            to 3.  If no input argument is     given, the default N is&#xA;            49. "></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="d0e1"></a>peaks Documentation</h1></div><div><h2 class="subtitle">Code and Figures from "peaks"</h2></div><div><p class="pubdate">02-May-2006 15:45:38</p></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p> PEAKS  A sample function of two variables.     PEAKS is a
+            function of two variables, obtained by translating and
+            scaling Gaussian distributions, which is useful for
+            demonstrating     MESH, SURF, PCOLOR, CONTOUR, etc.
+            There are several variants of the calling sequence:
+            Z = PEAKS;         Z = PEAKS(N);         Z = PEAKS(V);
+            Z = PEAKS(X,Y);           PEAKS;         PEAKS(N);
+            PEAKS(V);         PEAKS(X,Y);           [X,Y,Z] = PEAKS;
+            [X,Y,Z] = PEAKS(N);         [X,Y,Z] = PEAKS(V);       The
+            first variant produces a 49-by-49 matrix.     The second
+            variant produces an N-by-N matrix.     The third variant
+            produces an N-by-N matrix where N = length(V).     The
+            fourth variant evaluates the function at the given X and Y,
+            which must be the same size.  The resulting Z is also that
+            size.       The next four variants, with no output
+            arguments, do a SURF     plot of the result.       The last
+            three variants also produce two matrices, X and Y, for
+            use in commands such as PCOLOR(X,Y,Z) or
+            SURF(X,Y,Z,DEL2(Z)).       If not given as input, the
+            underlying matrices X and Y are         [X,Y] =
+            MESHGRID(V,V)      where V is a given vector, or V is a
+            vector of length N with     elements equally spaced from -3
+            to 3.  If no input argument is     given, the default N is
+            49. </p></div></div></div><div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#d0e15">1. Code: peaks</a></span></dt><dt><span class="chapter"><a href="#d0e212">2. Command Window Output</a></span></dt><dt><span class="chapter"><a href="#d0e220">3. Figure(s) Created</a></span></dt><dd><dl><dt><span class="sect1"><a href="#d0e226">
+    figure 1</a></span></dt></dl></dd></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>3.1. <a href="#d0e235">Figure Properties</a></dt></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="d0e15"></a>Chapter&nbsp;1.&nbsp;Code: peaks</h2></div></div><div></div></div><pre xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd"><span style="color:blue">function</span>  [xz,y,z] = peaks(arg1,arg2)
+<span style="color:green">%PEAKS  A sample function of two variables.</span>
+<span style="color:green">%   PEAKS is a function of two variables, obtained by translating and</span>
+<span style="color:green">%   scaling Gaussian distributions, which is useful for demonstrating</span>
+<span style="color:green">%   MESH, SURF, PCOLOR, CONTOUR, etc.</span>
+<span style="color:green">%   There are several variants of the calling sequence:</span>
+<span style="color:green">%</span>
+<span style="color:green">%       Z = PEAKS;</span>
+<span style="color:green">%       Z = PEAKS(N);</span>
+<span style="color:green">%       Z = PEAKS(V);</span>
+<span style="color:green">%       Z = PEAKS(X,Y);</span>
+<span style="color:green">%</span>
+<span style="color:green">%       PEAKS;</span>
+<span style="color:green">%       PEAKS(N);</span>
+<span style="color:green">%       PEAKS(V);</span>
+<span style="color:green">%       PEAKS(X,Y);</span>
+<span style="color:green">%</span>
+<span style="color:green">%       [X,Y,Z] = PEAKS;</span>
+<span style="color:green">%       [X,Y,Z] = PEAKS(N);</span>
+<span style="color:green">%       [X,Y,Z] = PEAKS(V);</span>
+<span style="color:green">%</span>
+<span style="color:green">%   The first variant produces a 49-by-49 matrix.</span>
+<span style="color:green">%   The second variant produces an N-by-N matrix.</span>
+<span style="color:green">%   The third variant produces an N-by-N matrix where N = length(V).</span>
+<span style="color:green">%   The fourth variant evaluates the function at the given X and Y,</span>
+<span style="color:green">%   which must be the same size.  The resulting Z is also that size.</span>
+<span style="color:green">%</span>
+<span style="color:green">%   The next four variants, with no output arguments, do a SURF</span>
+<span style="color:green">%   plot of the result.</span>
+<span style="color:green">%</span>
+<span style="color:green">%   The last three variants also produce two matrices, X and Y, for</span>
+<span style="color:green">%   use in commands such as PCOLOR(X,Y,Z) or SURF(X,Y,Z,DEL2(Z)).</span>
+<span style="color:green">%</span>
+<span style="color:green">%   If not given as input, the underlying matrices X and Y are</span>
+<span style="color:green">%       [X,Y] = MESHGRID(V,V) </span>
+<span style="color:green">%   where V is a given vector, or V is a vector of length N with</span>
+<span style="color:green">%   elements equally spaced from -3 to 3.  If no input argument is</span>
+<span style="color:green">%   given, the default N is 49.</span>
+
+<span style="color:green">%   CBM, 2-1-92, 8-11-92, 4-30-94.</span>
+<span style="color:green">%   Copyright 1984-2003 MathWorks, Inc.</span>
+<span style="color:green">%     </span>
+
+<span style="color:blue">if</span> nargin == 0
+    dx = 1/8;
+    [x,y] = meshgrid(-3:dx:3);
+<span style="color:blue">elseif</span> nargin == 1
+    <span style="color:blue">if</span> length(arg1) == 1
+        [x,y] = meshgrid(-3:6/(arg1-1):3);
+    <span style="color:blue">else</span>
+        [x,y] = meshgrid(arg1,arg1);     
+    <span style="color:blue">end</span>
+<span style="color:blue">else</span>
+    x = arg1; y = arg2;
+<span style="color:blue">end</span>
+
+z =  3*(1-x).^2.*exp(-(x.^2) - (y+1).^2) <span style="color:blue">...</span>
+   - 10*(x/5 - x.^3 - y.^5).*exp(-x.^2-y.^2) <span style="color:blue">...</span>
+   - 1/3*exp(-(x+1).^2 - y.^2);
+
+<span style="color:blue">if</span> nargout &gt; 1
+    xz = x;
+<span style="color:blue">elseif</span> nargout == 1
+    xz = z;
+<span style="color:blue">else</span>
+    <span style="color:green">% Self demonstration</span>
+    disp(<span style="color:#B20000">' '</span>)
+    disp(<span style="color:#B20000">'z =  3*(1-x).^2.*exp(-(x.^2) - (y+1).^2) ... '</span>)
+    disp(<span style="color:#B20000">'   - 10*(x/5 - x.^3 - y.^5).*exp(-x.^2-y.^2) ... '</span>)
+    disp(<span style="color:#B20000">'   - 1/3*exp(-(x+1).^2 - y.^2) '</span>)
+    disp(<span style="color:#B20000">' '</span>)
+    surf(x,y,z)
+    axis([min(min(x)) max(max(x)) min(min(y)) max(max(y)) <span style="color:blue">...</span>
+          min(min(z)) max(max(z))])
+    xlabel(<span style="color:#B20000">'x'</span>), ylabel(<span style="color:#B20000">'y'</span>), title(<span style="color:#B20000">'Peaks'</span>)
+<span style="color:blue">end</span>
+</pre></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="d0e212"></a>Chapter&nbsp;2.&nbsp;Command Window Output</h2></div></div><div></div></div><p>When peaks.m is run in the workspace, the following text is
+    displayed to the command window:</p><pre class="programlisting"> 
+z =  3*(1-x).^2.*exp(-(x.^2) - (y+1).^2) ... 
+   - 10*(x/5 - x.^3 - y.^5).*exp(-x.^2-y.^2) ... 
+   - 1/3*exp(-(x+1).^2 - y.^2) 
+ 
+</pre></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="d0e220"></a>Chapter&nbsp;3.&nbsp;Figure(s) Created</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#d0e226">
+    figure 1</a></span></dt></dl></div><p>Running peaks.m creates 1 figure(s).  A snapshot of each is
+    displayed below.</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e226"></a>
+    <a name="hg-Figure-1.00000000000000"></a>figure 1</h2></div></div><div></div></div><div class="mediaobject"><img src="./mfile-report_html_files/image-004-hg.png"></div><div class="table"><a name="d0e235"></a><p class="title"><b>Table&nbsp;3.1.&nbsp;Figure Properties</b></p><table summary="Figure Properties" width="100%" border="1" cellspacing="0"><colgroup><col width="3600*" align="left"><col width="8400*" align="left"></colgroup><tbody><tr valign="top"><td align="right"><span class="emphasis"><em>Name</em></span></td><td align="left">&nbsp;</td></tr><tr valign="top"><td align="right"><span class="emphasis"><em>FileName</em></span></td><td align="left">&nbsp;</td></tr><tr valign="top"><td align="right"><span class="emphasis"><em>Tag</em></span></td><td align="left">&nbsp;</td></tr><tr valign="top"><td align="right"><span class="emphasis"><em>Children</em></span></td><td align="left">Peaks</td></tr></tbody></table></div></div></div></div></body></html>

@@ -1,0 +1,5 @@
+<dig>
+    <action type="dynamic" id="Simulink:ReportGenerator:XMLComparison">
+        <generator gateway="slxmlmenus" function="getModelFilesItem" />
+    </action>
+</dig>

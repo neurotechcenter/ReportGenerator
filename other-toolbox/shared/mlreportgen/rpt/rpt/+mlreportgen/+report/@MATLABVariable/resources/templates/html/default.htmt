@@ -1,0 +1,96 @@
+  <!doctype html>
+  <html>
+  <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <title>MATLABVariable Template</title>
+      <style>/*<![CDATA[*/ 
+
+    /* Default styles for MATLAB Variable table title. */
+     p.MATLABVariableTableTitle {
+        font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+        font-size: 12pt;
+        margin-top: 12pt;
+        margin-bottom: 7.3pt;
+        font-weight:bold;
+        white-space: pre;
+        color: black;
+     }
+
+    /* Default styles for MATLAB Variable table. */
+    table.MATLABVariableTable {
+        border-collapse:collapse;
+    }
+
+   /* Default styles for MATLAB Variable table content. */
+     table.MATLABVariableTable td {
+        border-style:solid;
+        border-width:1px;
+        border-collapse: collapse;
+        font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+        font-size: 16px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        line-height: normal;
+        text-align: start;
+        white-space: normal;
+        }
+
+    /* Default styles for MATLAB Variable table header. */
+     table.MATLABVariableTable th {
+        border-style:solid;
+        border-width:1px;
+        background-color:#E3E3E3;
+        font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+        font-weight: bold;
+        font-size: 16px;
+        font-style: normal;
+        font-variant: normal;
+        line-height: normal;
+        text-align: left;
+        white-space: normal;
+    }
+
+    /* Default styles for MATLAB Variable paragraph. */
+    p.MATLABVariableParagraph {
+        font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+        margin-top: 10pt;
+    }
+	  
+		  //]]>
+      </style>
+  </head>
+  <body>
+	<dplibrary>
+        
+        <dptemplate name="MATLABVariable">
+        <!-- filled with BaseTable or Paragraph object -->
+            <hole id="Content">CONTENT</hole>
+        </dptemplate>
+
+        <!-- hierarchical numbered template for the BaseTable title -->
+        <dptemplate name="MATLABVariableHierNumberedTitle">
+            <p class="MATLABVariableTableTitle" style="counter-increment:table"
+                ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+                ><span class="an_sect1"></span
+                ><span>.</span
+                ><span class="an_table"></span
+                ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+                ><hole id="Content">TITLE_CONTENT</hole
+            ></p>
+        </dptemplate>
+            
+        <!-- numbered template for the BaseTable title -->
+        <dptemplate name="MATLABVariableNumberedTitle">
+            <p class="MATLABVariableTableTitle" style="counter-increment:table"
+                ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+                ><span class="an_table"></span
+                ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+                ><hole id="Content">TITLE_CONTENT</hole
+            ></p>
+        </dptemplate>
+        
+      </dplibrary>
+  </body>
+  </html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>/*<![CDATA[*/ 
+
+p.TableOfContentsTitle {
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 12pt;
+    font-weight:bold;
+}
+
+
+/* TOC container */
+TOC {
+    background-color: #f2f2f2; /* light gray */
+    display:none;
+}
+
+/* top-level TOC entries */
+ul.TOCItems {
+    list-style-type:none; /* no bullets */
+    padding-left:1em;     /* Indent from left margin */
+}
+
+/* lower-level TOC entries */
+ul.TOCItems  ul {
+  list-style-type:none;
+  padding-left:1.2em;
+}
+
+/* Title of section targeted by this TOC entry */
+a.TOCItemTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-weight:bold;
+    color:blue;
+    text-decoration: underline;
+}                                                                            
+
+span.TOCHandle {
+    display:block;
+    float:left;
+    height:10px;
+    width:10px;
+    background-color: transparent;
+    border: 1px solid black;
+    background-position: center bottom; 
+    background-repeat: no-repeat;
+    position:relative;
+    top:2px;  
+    margin-right:5pt;
+    cursor:default;
+}
+
+
+span.TOCHandleCollapsed {
+    background-image: url("plus.png");
+}
+
+span.TOCHandleCollapsed:hover {
+    background-image: url("plus-hover.png");
+}
+
+span.TOCHandleExpanded {
+    background-image: url("minus.png");
+}
+
+span.TOCHandleExpanded:hover {
+    background-image: url("minus-hover.png");
+}
+    
+        //]]>
+    </style>
+</head>
+<body>
+  <dplibrary>
+    
+    <dptemplate name="TableOfContents">
+      <div>
+        <hole id="Title" default-style-name="TableOfContentsTitle">TITLE</hole>
+        <hole id="TOCObj" default-style-name="TOC">TOC_OBJECT</hole>
+      </div>
+    </dptemplate>
+    
+    <!-- TableOfContents Title template used by the TableOfContents reporter -->       
+    <dptemplate name="TableOfContentsTitle">
+         <p class="TableOfContentsTitle">
+            <span 
+                class="TOCHandle TOCHandleCollapsed" 
+                id="tocVisibilityHandle" 
+                onclick="util.toggleTOCVisibility(event,'tocVisibilityHandle', 'toc')"
+                style = "margin-top:3px;"
+            ></span>
+            <hole id="Content" default-style-name="TableOfContentsTitle"/>
+         </p> 
+         
+    </dptemplate>         
+          
+  </dplibrary>
+</body>
+</html>

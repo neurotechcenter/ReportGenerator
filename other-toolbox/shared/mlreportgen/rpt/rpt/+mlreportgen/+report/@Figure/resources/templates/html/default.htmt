@@ -1,0 +1,53 @@
+  <!doctype html>
+  <html>
+  <head>
+	  <meta charset="utf-8" />
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	  <style>/*<![CDATA[*/  
+ 
+    p.FigureImage {
+		margin-bottom: 10pt;
+	}
+	 p.FigureCaption {
+		 font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+		 font-size: 10pt;
+		 white-space: pre;
+		 color:black;
+     }
+		  //]]>
+	  </style>
+  </head>
+  <body>
+	<dplibrary>
+     <!-- template used to fill the FormalImage main template -->
+        <dptemplate name="Figure">
+            <hole id="Content">CONTENT</hole>
+        </dptemplate>
+    
+    <!-- template used to fill the "Image" hole for the FormalImage main template -->
+        <dptemplate name="FigureImage">
+            <p class="FigureImage"><hole id="Content">IMAGE</hole></p>
+        </dptemplate>
+    <!-- hierarchical numbered template used to fill the "Caption" hole for the FormalImage main template -->
+        <dptemplate name="FigureHierNumberedCaption">
+             <p class="FigureCaption" style="counter-increment:figure"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_sect1"></span
+             ><span>.</span
+             ><span class="an_figure"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">CAPTION_CONTENT</hole
+             ></p>
+        </dptemplate>
+        <!-- numbered template used to fill the "Caption" hole for the FormalImage main template -->
+        <dptemplate name="FigureNumberedCaption">
+             <p class="FigureCaption" style="counter-increment:figure"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_figure"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">CAPTION_CONTENT</hole
+             ></p>
+        </dptemplate>
+      </dplibrary>
+  </body>
+  </html>

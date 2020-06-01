@@ -1,0 +1,86 @@
+  <!doctype html>
+  <html>
+  <head>
+	  <meta charset="utf-8" />
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	  <style>/*<![CDATA[*/ 
+  
+    p.BaseTableTitle {
+	  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+	  font-size: 12pt;
+	  margin-top: 12pt;
+	  margin-bottom: 7.3pt;
+	  font-weight:bold;
+	  white-space: pre;
+	  color: black;
+  }
+  table.BaseTableContent td, table.BaseTableContent th{
+    border-style:solid;
+    border-width:1px;
+    border-collapse:collapse;
+    font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: normal;
+    text-align: start;
+    white-space: normal;
+   }
+  table.BaseTableContent{
+    border-collapse:collapse;
+  }
+    p.BaseTableSlicedTableContentTitle {
+	  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+	  font-size: 10pt;
+	  margin-top: 10pt;
+	  margin-bottom: 7.3pt;
+	  font-weight:bold;
+	  white-space: pre;
+	  color: black;
+  }
+
+  span.an_sect1:before {content: counter(sect1);}
+
+  span.an_table:before {content: counter(table);}
+	  
+		  //]]>
+	  </style>
+  </head>
+  <body>
+	<dplibrary>
+        <!-- NOTE: temporary in the template library until the DOM supports a source without template name -->
+        <dptemplate name="BaseTable">
+            <!-- filled with BaseTable title template. See docpart_templates.html -->
+            <hole id="Title">TITLE</hole>
+            
+            <!-- filled with BaseTable content template. See docpart_templates.html -->
+            <hole id="Content">CONTENT</hole>
+            
+        </dptemplate>
+        <!-- template used to fill the "Content" hole for the BaseTable main template -->
+        <dptemplate name="BaseTableContent">
+           <hole id="Content" default-style-name="BaseTableContent">CONTENT</hole>
+        </dptemplate>
+        <!-- template used to fill the "Title" hole for the BaseTable main template -->
+        <dptemplate name="BaseTableHierNumberedTitle">
+             <p class="BaseTableTitle" style="counter-increment:table"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_sect1"></span
+             ><span>.</span
+             ><span class="an_table"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">TITLE_CONTENT</hole
+             ></p>
+        </dptemplate>
+        <dptemplate name="BaseTableNumberedTitle">
+             <p class="BaseTableTitle" style="counter-increment:table"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_table"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">TITLE_CONTENT</hole
+             ></p>
+        </dptemplate>
+      </dplibrary>
+  </body>
+  </html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017-2018 The MathWorks, Inc. -->
+<settings name="comparisons" 
+          visible="false"          
+          version="1" 
+          xmlns="urn:mathworks.matlab.settings" 
+          xsi:schemaLocation="urn:mathworks.matlab.settings settings.xsd"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <settings name="slx" visible="false">
+        <key name="CloseSameNameModel" visible="false">
+            <bool>
+                <value>0</value>
+            </bool>
+        </key>
+        <key name="WarnOnMemoryLow" visible="false">
+            <bool>
+                <value>1</value>
+            </bool>
+        </key>
+        <settings name="highlight" visible="false">
+            <key name="AlwaysHighlight" visible="false">
+                <bool>
+                    <value>1</value>
+                </bool>
+            </key>
+            <key name="ReportPosition" visible="false">
+                <double minArraySize="4" maxArraySize="4">
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                </double>
+            </key>
+            <key name="SimulinkPositionLeft" visible="false">
+                <double minArraySize="4" maxArraySize="4">
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                </double>
+            </key>
+            <key name="SimulinkPositionRight" visible="false">
+                <double minArraySize="4" maxArraySize="4">
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                </double>
+            </key>
+            <key name="StateflowPositionLeft" visible="false">
+                <double minArraySize="4" maxArraySize="4">
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                </double>
+            </key>
+            <key name="StateflowPositionRight" visible="false">
+                <double minArraySize="4" maxArraySize="4">
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                    <value>0</value>
+                </double>
+            </key>
+        </settings>
+    </settings>
+</settings>

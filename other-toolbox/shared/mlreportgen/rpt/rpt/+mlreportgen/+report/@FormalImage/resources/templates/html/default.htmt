@@ -1,0 +1,66 @@
+  <!doctype html>
+  <html>
+  <head>
+	  <meta charset="utf-8" />
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	  <style>/*<![CDATA[*/ 
+  
+  p.FormalImageImage {
+		margin-bottom: 10pt;
+	}
+	
+	p.FormalImageCaption {
+		 font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+		 font-size: 10pt;
+		 white-space: pre;
+		 color:black;
+	}
+  
+	span.an_sect1:before {content: counter(sect1);}
+  
+	span.an_figure:before {content: counter(figure);}
+	  
+		  //]]>
+	  </style>
+  </head>
+  <body>
+	<dplibrary>
+        
+        <dptemplate name="FormalImage">
+            <!-- filled with FormalImageImage template -->
+            <hole id="Image">IMAGE</hole>
+            
+            <!-- filled with FormalImageHierNumberedCaption or FormalImageNumberedCaption template -->
+            <hole id="Caption">CAPTION</hole>
+        </dptemplate>
+        
+        <!-- template used to fill the "Image" hole for the FormalImage main template -->
+        <dptemplate name="FormalImageImage">
+            <p class="FormalImageImage"><hole id="Content">IMAGE</hole></p>
+        </dptemplate>
+        
+        <!-- hierarchical numbered template used to fill the "Caption" hole for the FormalImage main template -->
+        <dptemplate name="FormalImageHierNumberedCaption">
+             <p class="FormalImageCaption" style="counter-increment:figure"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_sect1"></span
+             ><span>.</span
+             ><span class="an_figure"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">CAPTION_CONTENT</hole
+             ></p>
+        </dptemplate>
+
+        <!-- numbered template used to fill the "Caption" hole for the FormalImage main template -->
+        <dptemplate name="FormalImageNumberedCaption">
+             <p class="FormalImageCaption" style="counter-increment:figure"
+             ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+             ><span class="an_figure"></span
+             ><hole id="NumberSuffix">NUMBER_SUFFIX</hole
+             ><hole id="Content">CAPTION_CONTENT</hole
+             ></p>
+        </dptemplate>
+        
+      </dplibrary>
+  </body>
+  </html>

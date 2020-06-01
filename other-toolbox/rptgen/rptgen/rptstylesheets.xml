@@ -1,0 +1,1328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<stylesheet_registry xmlns:xsl="http://www.w3.org/1999/XSL/Transform" use_msgid="true">
+<!-- message ids must be prefixed with rptgen:rptstylesheets -->
+   <version>
+       %   Copyright 1997-2017 The MathWorks, Inc.
+    </version>
+
+<!-- ============ XSLT HTML STYLESHEETS =================================== -->
+
+<stylesheet id="html-!MultiPage" transformtype="html">
+   <name>rptgen:rptstylesheets:MultiPageWebName</name>
+   <description>rptgen:rptstylesheets:MultiPageWebDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/chunk_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:variable name="chunk.quietly" select='0'/>
+      <xsl:param name="generate.toc">
+        book      toc,title
+        chapter   toc,title,figure,table,example,equation
+        section   toc
+      </xsl:param>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="!html-SinglePage" transformtype="html">
+   <name>rptgen:rptstylesheets:SinglePageWebName</name>
+   <description>rptgen:rptstylesheets:SinglePageWebDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="callout.graphics" select='0'/>
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:param name="generate.toc">
+        book      toc,title,figure,table,example,equation
+        chapter   toc,title
+        section   toc
+      </xsl:param>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-!SingleNoChapterNumbers" transformtype="html">
+   <name>rptgen:rptstylesheets:SinglePageUnnumberedChaptersName</name>
+   <description>rptgen:rptstylesheets:SinglePageUnnumberedChaptersDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="chapter.autolabel" select="0"/>
+      <xsl:variable name="section.autolabel" select="0"/>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-!SingleYesChapterNumbers" transformtype="html">
+   <name>rptgen:rptstylesheets:SinglePageNumberedChaptersName</name>
+   <description>rptgen:rptstylesheets:SinglePageNumberedChaptersDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="chapter.autolabel" select="1"/>
+      <xsl:variable name="section.autolabel" select="1"/>
+      <xsl:variable name="section.label.includes.component.label" select="1"/>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-!SingleClearTitleTocLot" transformtype="html">
+   <name>rptgen:rptstylesheets:SinglePageSimpleName</name>
+   <description>rptgen:rptstylesheets:SinglePageSimpleDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:param name="generate.toc">
+        book      nop
+        chapter   nop
+        section   nop
+      </xsl:param>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-MultiClearTitleTocLot" transformtype="html">
+   <name>rptgen:rptstylesheets:MultiPageSimpleName</name>
+   <description>rptgen:rptstylesheets:MultiPageSimpleDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/chunk_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:variable name="chunk.quietly" select='0'/>
+      <xsl:param name="generate.toc">
+        book      nop
+        chapter   nop
+        section   nop
+      </xsl:param>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-MultiNoChapterNumbers" transformtype="html">
+   <name>rptgen:rptstylesheets:MultiPageUnnumberedChaptersName</name>
+   <description>rptgen:rptstylesheets:MultiPageUnnumberedChaptersDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/chunk_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="chunk.quietly" select='0'/>
+      <xsl:variable name="chapter.autolabel" select="0"/>
+      <xsl:variable name="section.autolabel" select="0"/>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet  id="html-MultiYesChapterNumbers" transformtype="html">
+   <name>rptgen:rptstylesheets:MultiPageNumberedChaptersName</name>
+   <description>rptgen:rptstylesheets:MultiPageNumberedChaptersDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/html/chunk_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="chunk.quietly" select='0'/>
+      <xsl:variable name="chapter.autolabel" select="1"/>
+      <xsl:variable name="section.autolabel" select="1"/>
+      <xsl:variable name="section.label.includes.component.label" select="1"/>
+      <xsl:variable name="callout.graphics" select='0'/> 
+      <xsl:variable name="show.comments" select='0'/>
+   </xsl_code>
+</stylesheet>
+
+<!-- ============ XSL FO STYLESHEETS ======================================= -->
+
+<stylesheet id="!fo-NoOptions" transformtype="fo">
+   <name>rptgen:rptstylesheets:StandardPrintName</name>
+   <description>rptgen:rptstylesheets:StandardPrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:param name="generate.toc">
+        book      toc,title,figure,table,example,equation
+        chapter   toc,title
+        section   toc
+      </xsl:param>
+      <xsl:attribute-set name="xref.properties">
+        <xsl:attribute name="color">
+          <xsl:choose>
+            <xsl:when test="self::ulink">blue</xsl:when>
+            <xsl:otherwise>inherit</xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="fo-NoTitleorTOC" transformtype="fo">
+   <name>rptgen:rptstylesheets:SimplePrintName</name>
+   <description>rptgen:rptstylesheets:SimplePrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+      <xsl:variable name="show.comments" select='0'/>
+      <xsl:param name="generate.toc">
+        book      nop
+        chapter   nop
+        section   nop
+      </xsl:param>
+      <xsl:attribute-set name="xref.properties">
+        <xsl:attribute name="color">
+          <xsl:choose>
+            <xsl:when test="self::ulink">blue</xsl:when>
+            <xsl:otherwise>inherit</xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="fo-CompactNoTitleorTOC" transformtype="fo">
+   <name>rptgen:rptstylesheets:CompactSimplePrintName</name>
+   <description>rptgen:rptstylesheets:CompactSimplePrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="header.rule"       select='0'/> 
+         <xsl:variable name="footer.rule"       select='0'/> 
+         <xsl:param name="generate.toc">
+           book      nop
+           chapter   nop
+           section   nop
+         </xsl:param>
+         <xsl:variable name="line-height" select='1.01'/>
+         <xsl:variable name="body.font.master" select='9'/>
+         <xsl:variable name="page.margin.inner" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.outer" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="page.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="body.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="body.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="region.after.extent" select="'0.18in'"/> 
+         <xsl:variable name="region.before.extent" select="'0.18in'"/> 
+         <xsl:attribute-set name="formal.object.properties">
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
+            <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="formal.title.properties" use-attribute-sets="normal.para.spacing">
+            <xsl:attribute name="font-weight">bold</xsl:attribute>
+            <xsl:attribute name="font-size">
+              <xsl:value-of select="$body.font.master * 1.1"/>
+              <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="hyphenate">false</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="informal.object.properties">
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="list.block.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="list.item.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="normal.para.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.properties">
+            <xsl:attribute name="font-family">
+            <xsl:value-of select="$title.font.family"/>
+         </xsl:attribute>
+         <xsl:attribute name="font-weight">bold</xsl:attribute>
+            <!-- font size is calculated dynamically by section.heading template -->
+            <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level1.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.8"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level2.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.4"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level3.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.2"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level4.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.1"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+
+</stylesheet>
+
+
+<stylesheet id="fo-LargeType" transformtype="fo">
+   <name>rptgen:rptstylesheets:LargeTypePrintName</name>
+   <description>rptgen:rptstylesheets:LargeTypePrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="page.margin.inner" select="'0.5in'"/> 
+         <xsl:variable name="page.margin.outer" select="'0.5in'"/> 
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="body.font.master" select='12'/>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+
+<stylesheet id="fo-VeryLargeType" transformtype="fo">
+   <name>rptgen:rptstylesheets:VeryLargeTypePrintName</name>
+   <description>rptgen:rptstylesheets:VeryLargeTypePrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="paper.type"        select="'USlandscape'"/>
+         <xsl:variable name="page.margin.inner" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.outer" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="page.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="body.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="body.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="region.after.extent" select="'0.18in'"/> 
+         <xsl:variable name="region.before.extent" select="'0.18in'"/> 
+         <xsl:variable name="body.font.master" select='24'/>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+
+</stylesheet>
+
+<stylesheet id="fo-Compact" transformtype="fo">
+   <name>rptgen:rptstylesheets:CompactPrintName</name>
+   <description>rptgen:rptstylesheets:CompactPrintDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="header.rule"       select='0'/> 
+         <xsl:variable name="footer.rule"       select='0'/> 
+         <xsl:variable name="page.margin.inner" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.outer" select="'0.25in'"/> 
+         <xsl:variable name="page.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="page.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="body.margin.top"   select="'0.25in'"/> 
+         <xsl:variable name="body.margin.bottom" select="'0.25in'"/>
+         <xsl:variable name="region.after.extent" select="'0.18in'"/> 
+         <xsl:variable name="region.before.extent" select="'0.18in'"/> 
+         <xsl:variable name="body.font.master" select='9'/>
+         <xsl:variable name="line-height" select='1.01'/>
+         <xsl:attribute-set name="formal.object.properties">
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
+            <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="formal.title.properties" use-attribute-sets="normal.para.spacing">
+            <xsl:attribute name="font-weight">bold</xsl:attribute>
+            <xsl:attribute name="font-size">
+              <xsl:value-of select="$body.font.master * 1.1"/>
+              <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="hyphenate">false</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="informal.object.properties">
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="list.block.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+            <xsl:attribute name="space-after.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-after.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="list.item.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="normal.para.spacing">
+            <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.properties">
+            <xsl:attribute name="font-family">
+            <xsl:value-of select="$title.font.family"/>
+         </xsl:attribute>
+         <xsl:attribute name="font-weight">bold</xsl:attribute>
+            <!-- font size is calculated dynamically by section.heading template -->
+            <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+            <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
+            <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+            <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level1.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.8"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level2.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.4"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level3.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.2"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.title.level4.properties">
+            <xsl:attribute name="font-size">
+             <xsl:value-of select="$body.font.master * 1.1"/>
+             <xsl:text>pt</xsl:text>
+            </xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+      <!--<xsl:variable name="%generate-book-toc-on-titlepage%" select='1'/> -->
+   </xsl_code>
+    <t:titlepage t:element="book" t:wrapper="fo:block"
+              xmlns:t="http://nwalsh.com/docbook/xsl/template/1.0"
+              xmlns:param="http://nwalsh.com/docbook/xsl/template/1.0/param"
+              xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <t:titlepage-content t:side="recto">
+      <title
+	     t:named-template="division.title"
+	     param:node="ancestor-or-self::book[1]"
+	     text-align="center"
+	     font-size="25pt"
+	     space-before="18pt"
+	     font-weight="bold"
+	     font-family="{$title.fontset}"/>
+      <subtitle
+		text-align="center"
+		font-size="21pt"
+		space-before="15pt"
+		font-family="{$title.fontset}"/>
+      <author font-size="17pt"
+	      space-before="11pt"
+	      keep-with-next="always"/>
+      <graphic/>
+      <pubdate/>
+    </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+      <fo:block break-after="page"/>
+  </t:titlepage-before>
+</t:titlepage>
+
+
+<t:titlepage t:element="sect1" t:wrapper="fo:block"
+              xmlns:t="http://nwalsh.com/docbook/xsl/template/1.0"
+              xmlns:param="http://nwalsh.com/docbook/xsl/template/1.0/param"
+              xmlns:fo="http://www.w3.org/1999/XSL/Format">
+
+  <t:titlepage-content t:side="recto">
+    <title
+	   margin-left="{$title.margin.left}"
+	   font-family="{$title.fontset}"/>
+    <subtitle
+	      font-family="{$title.fontset}"/>
+    <author/>
+    <copyright/>
+    <graphic/>
+    <pubdate/>
+  </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+  </t:titlepage-before>
+</t:titlepage>
+
+
+</stylesheet>
+
+<stylesheet id="fo-NoChapterNumbers" transformtype="fo">
+   <name>rptgen:rptstylesheets:UnnumberedChaptersAndSectionsName</name>
+   <description>rptgen:rptstylesheets:UnnumberedChaptersAndSectionsDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="chapter.autolabel" select='0'/>
+         <xsl:variable name="section.autolabel" select='0'/>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="fo-YesChapterNumbers" transformtype="fo">
+   <name>rptgen:rptstylesheets:NumberedChaptersAndSectionsName</name>
+   <description>rptgen:rptstylesheets:NumberedChaptersAndSectionsDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="chapter.autolabel" select='1'/>
+         <xsl:variable name="section.autolabel" select='1'/>
+	   <xsl:variable name="section.label.includes.component.label" select="1"/>
+       <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+
+<stylesheet id="fo-Paginated" transformtype="fo">
+   <name>rptgen:rptstylesheets:PaginatedSectionsName</name>
+   <description>rptgen:rptstylesheets:PaginatedSectionsDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="chapter.autolabel" select='1'/>
+         <xsl:variable name="section.autolabel" select='1'/>
+         <xsl:attribute-set name="section.level1.properties">
+             <xsl:attribute name="break-before">page</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.level2.properties">
+             <xsl:attribute name="break-before">page</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.level3.properties">
+             <xsl:attribute name="break-before">page</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.level4.properties">
+             <xsl:attribute name="break-before">page</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:attribute-set name="section.level5.properties">
+             <xsl:attribute name="break-before">page</xsl:attribute>
+         </xsl:attribute-set>
+         <xsl:param name="generate.toc">
+           book      toc,title,figure,table,example,equation
+           chapter   toc,title,figure,table,example,equation
+           section   toc
+         </xsl:param>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="fo-CustomHeader" transformtype="fo">
+   <name>rptgen:rptstylesheets:CustomHeaderName</name>
+   <description>rptgen:rptstylesheets:CustomHeaderDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="chapter.autolabel" select='1'/>
+         <xsl:variable name="section.autolabel" select='1'/>
+         <xsl:param name="generate.toc">
+           book      toc,title,figure,table,example,equation
+           chapter   toc,title,figure,table,example,equation
+           section   toc
+         </xsl:param>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+
+<xsl:template name="header.content">
+  <xsl:param name="pageclass" select="''"/>
+  <xsl:param name="sequence" select="''"/>
+  <xsl:param name="position" select="''"/>
+  <xsl:param name="gentext-key" select="''"/>
+
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!-- sequence can be odd, even, first, blank -->
+    <!-- position can be left, center, right -->
+    <xsl:choose>
+      <xsl:when test="$pageclass = 'titlepage'">
+        <!-- nop; no footer on title pages -->
+      </xsl:when>
+
+      <xsl:when test="$position='left'">
+        <xsl:value-of select="/descendant::author[position()=1]"/>
+      </xsl:when>
+
+      <xsl:when test="$position='center'">
+          <xsl:choose>
+            <xsl:when test="ancestor::book and ($double.sided != 0)">
+              <fo:retrieve-marker retrieve-class-name="section.head.marker"
+                                  retrieve-position="first-including-carryover"
+                                  retrieve-boundary="page-sequence"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+            </xsl:otherwise>
+          </xsl:choose>
+      </xsl:when>
+
+      <xsl:when test="$position='right'">
+        <xsl:text>Confidential</xsl:text>
+      </xsl:when>
+
+    </xsl:choose>
+  </fo:block>
+</xsl:template>
+
+<xsl:template name="footer.content">
+  <xsl:param name="pageclass" select="''"/>
+  <xsl:param name="sequence" select="''"/>
+  <xsl:param name="position" select="''"/>
+  <xsl:param name="gentext-key" select="''"/>
+
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <!-- pageclass can be front, body, back -->
+    <!-- sequence can be odd, even, first, blank -->
+    <!-- position can be left, center, right -->
+    <xsl:choose>
+      <xsl:when test="$pageclass = 'titlepage'">
+        <!-- nop; no footer on title pages -->
+      </xsl:when>
+
+      <xsl:when test="$position='left'">
+        <xsl:value-of select="ancestor-or-self::author"/>
+      </xsl:when>
+
+      <xsl:when test="$position='right'">
+        <xsl:text>Confidential</xsl:text>
+      </xsl:when>
+
+      <xsl:when test="$position='center'">
+        <fo:page-number/>
+      </xsl:when>
+
+      <xsl:otherwise>
+        <!-- nop -->
+      </xsl:otherwise>
+    </xsl:choose>
+  </fo:block>
+</xsl:template>
+
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="fo-CustomTitlepage" transformtype="fo">
+   <name>rptgen:rptstylesheets:CustomTitlepageName</name>
+   <description>rptgen:rptstylesheets:CustomTitlepageDescription</description>
+   <filename>$approot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+   <xsl_code>
+         <xsl:variable name="show.comments" select='0'/>
+         <xsl:variable name="chapter.autolabel" select='1'/>
+         <xsl:variable name="section.autolabel" select='1'/>
+         <xsl:param name="generate.toc">
+           book      toc,title,figure,table,example,equation
+           chapter   toc,title,figure,table,example,equation
+           section   toc,title
+         </xsl:param>
+         <xsl:attribute-set name="xref.properties">
+           <xsl:attribute name="color">
+            <xsl:choose>
+              <xsl:when test="self::ulink">blue</xsl:when>
+              <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:attribute-set>
+    <t:titlepage t:element="book" t:wrapper="fo:block"
+              xmlns:t="http://nwalsh.com/docbook/xsl/template/1.0"
+              xmlns:param="http://nwalsh.com/docbook/xsl/template/1.0/param"
+              xmlns:fo="http://www.w3.org/1999/XSL/Format">
+    <t:titlepage-content t:side="recto">
+      <title
+	     t:named-template="division.title"
+	     param:node="ancestor-or-self::book[1]"
+	     text-align="center"
+	     font-size="25pt"
+	     space-before="18pt"
+	     font-weight="bold"
+	     font-family="{$title.fontset}"/>
+      <subtitle
+		text-align="center"
+		font-size="21pt"
+		space-before="15pt"
+		font-family="{$title.fontset}"/>
+      <author font-size="17pt"
+	      space-before="11pt"
+	      keep-with-next="always"/>
+      <graphic/>
+    </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+      <title
+	     t:named-template="book.verso.title"
+	     font-size="14pt"
+	     font-weight="bold"
+	     font-family="{$title.fontset}"/>
+      <author/>
+      <pubdate space-before="1em"/>
+      <copyright/>
+      <abstract/>
+      <legalnotice font-size="8pt"/>
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+      <fo:block break-after="page"/>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+      <fo:block break-after="page"/>
+  </t:titlepage-before>
+</t:titlepage>
+
+
+<t:titlepage t:element="sect1" t:wrapper="fo:block"
+              xmlns:t="http://nwalsh.com/docbook/xsl/template/1.0"
+              xmlns:param="http://nwalsh.com/docbook/xsl/template/1.0/param"
+              xmlns:fo="http://www.w3.org/1999/XSL/Format">
+
+  <t:titlepage-content t:side="recto">
+    <title
+	   margin-left="{$title.margin.left}"
+	   font-family="{$title.fontset}"/>
+    <subtitle
+	      font-family="{$title.fontset}"/>
+    <author/>
+    <copyright/>
+    <graphic/>
+    <legalnotice/>
+    <pubdate/>
+    <abstract/>
+  </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+  </t:titlepage-before>
+</t:titlepage>
+
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="print-verbose" transformtype="fo">
+  <name>rptgen:rptstylesheets:VerbosePrintName</name>
+  <description>rptgen:rptstylesheets:VerbosePrintDescription</description>
+  <filename>$matlabroot/sys/namespace/docbook/v4/xsl/fo/docbook_rptgen.xsl</filename>
+  <xsl_code>
+    <xsl:variable name="show.comments" select="0"/>
+    <xsl:variable name="header.rule" select="1"/>
+    <xsl:variable name="footer.rule" select="1"/>
+    <xsl:param name="marker.section.level" select="3"/>
+    <xsl:param name="generate.toc">
+book toc,title,figure,table,example,equation
+/chapter toc,title,figure,table
+/sect1 toc,title,figure,table
+/sect2 toc,title,figure,table
+/sect3 toc,title,figure,table
+/sect4 nop
+/sect5 nop
+/section nop
+    </xsl:param>
+    <xsl:param name="toc.section.depth" select="3"/>
+    <xsl:param name="chapter.autolabel" select="1"/>
+    <xsl:param name="section.autolabel" select="1"/>
+    <xsl:param name="section.label.includes.component.label" select="1"/>
+    <xsl:param name="ulink.footnotes" select="1"/>
+    <xsl:param name="table.footnote.number.format" select="'1'"/>
+    <xsl:param name="shade.verbatim" select="1"/>
+    <xsl:param name="double.sided" select="0"/>
+    <xsl:param name="column.count.lot" select="2"/>
+    <xsl:param name="column.count.titlepage" select="1"/>
+    <xsl:param name="body.font.master" select="11"/>
+    <xsl:attribute-set name="xref.properties">
+       <xsl:attribute name="color">
+        <xsl:choose>
+          <xsl:when test="self::ulink">blue</xsl:when>
+          <xsl:otherwise>inherit</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:attribute-set>
+  </xsl_code>
+</stylesheet>
+
+<!-- ============ LATEX STYLESHEETS =================================== -->
+
+<!-- a complete list of variables is available in
+
+http://db2latex.sourceforge.net/reference
+
+-->
+
+<stylesheet id="default-latex" transformtype="latex">
+   <name>rptgen:rptstylesheets:LaTeXDefaultName</name>
+   <description>rptgen:rptstylesheets:LaTeXDefaultDescription</description>
+   <filename>http://db2latex.sourceforge.net/xsl/docbook.xsl</filename>
+   <xsl_code>
+      <xsl:param name="latex.use.fancyhdr" select='0'/>
+      <xsl:variable name="l10n.gentext.default.language">en</xsl:variable>
+      <xsl:variable name="latex.documentclass.common"/> 
+      <xsl:variable name="latex.babel.language"/>
+   </xsl_code>
+</stylesheet>
+
+<stylesheet id="latex-fancy" transformtype="latex">
+   <name>rptgen:rptstylesheets:LaTeXFancyName</name>
+   <description>rptgen:rptstylesheets:LaTeXFancyDescription</description>
+   <filename>http://db2latex.sourceforge.net/xsl/docbook.xsl</filename>
+   <xsl_code>
+      <xsl:param name="latex.use.fancyhdr" select='1'/>
+      <xsl:param name="latex.use.fancybox" select='1'/>
+      <xsl:param name="latex.use.fancyvrb" select='1'/>
+      <xsl:param name="latex.suppress.blank.page.headers" select='0'/>
+      <xsl:variable name="l10n.gentext.default.language">en</xsl:variable>
+      <xsl:variable name="latex.documentclass.common"/> 
+      <xsl:variable name="latex.babel.language"/>
+   </xsl_code>
+</stylesheet>
+
+
+<!-- ============ v1.0 DSSSL STYLESHEETS ============================== -->
+
+
+<registry>
+<comment>
+   =============================================================
+   &lt;FILEENTITIES> tag sets up entity references which can be
+   used in the stylesheets' &lt;FILEREF> and &lt;DSSSL> tags.
+   For example:
+   &lt;refname>Foo&lt;/refname>
+   &lt;filename>
+      &lt;d>$approot$&lt;/d>
+      &lt;d>toolbox&lt;/d>
+      &lt;d>rptgen&lt;/d>
+      &lt;d>private&lt;/d>
+      &lt;f>jadechunker.dsl&lt;/f>
+   &lt;/filename>
+</comment>
+
+<fileentities>
+   <refname>PRINT</refname>
+   <filename>
+      <d>$approot$</d>
+      <d>sys</d>
+      <d>jade</d>
+      <d>docbook</d>
+      <d>print</d>
+      <f>docbook.dsl</f>
+   </filename>
+   <refname>HTML</refname>
+   <filename>
+      <d>$approot$</d>
+      <d>sys</d>
+      <d>jade</d>
+      <d>docbook</d>
+      <d>html</d>
+      <f>docbook.dsl</f>
+   </filename>
+</fileentities>
+
+<comment>
+   =============================================================
+   &lt;VARIABLES> tag - references built-in variables in the stylesheet.
+   Many stylesheet authors allow variables to be defined using
+   (define %variable-name% "value") in the customization layer.
+   For a complete list of variable parameters see dbparam.dsl in
+   the print or HTML stylesheets.
+</comment>
+
+<comment>
+   &lt;ID> tag is used as a unique identifier to the stylesheet.
+   Names may change, but ID's should not.  Lists of stylesheets
+   are sorted by ID, not name.  The "default" sheet begins with 
+   a "!" since it is the first keyboard character.
+</comment>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:StandardPrintName</name>
+   <ID>!print-NoOptions</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:StandardPrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:SimplePrintName</name>
+   <ID>print-NoTitleorTOC</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:SimplePrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>($generate-book-lot-list$)</varname>
+      <varvalue>(list )</varvalue></varpair>
+      <varpair><varname>%generate-book-titlepage%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-toc%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:CompactSimplePrintName</name>
+   <ID>print-CompactNoTitleorTOC</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:CompactSimplePrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>($generate-book-lot-list$)</varname>
+      <varvalue>(list )</varvalue></varpair>
+      <varpair><varname>%generate-book-titlepage%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-toc%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%body-start-indent%</varname>
+      <varvalue>0pi</varvalue></varpair>
+      <varpair><varname>%head-after-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%head-before-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%hsize-bump-factor%</varname>
+      <varvalue>1.05</varvalue></varpair>
+      <varpair><varname>%left-margin%</varname>
+      <varvalue>1pi</varvalue></varpair>
+      <varpair><varname>%right-margin%</varname>
+      <varvalue>1pi</varvalue></varpair>
+      <varpair><varname>%para-sep%</varname>
+      <varvalue>(/ %bf-size% 0.5)</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:LargeTypePrintName</name>
+   <ID>print-LargeType</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:LargeTypePrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%visual-acuity%</varname>
+      <varvalue>"presbyopic"</varvalue></varpair>
+      <varpair><varname>%body-start-indent%</varname>
+      <varvalue>1pi</varvalue></varpair>
+      <varpair><varname>%head-after-factor%</varname>
+      <varvalue>.25</varvalue></varpair>
+      <varpair><varname>%head-before-factor%</varname>
+      <varvalue>.25</varvalue></varpair>
+      <varpair><varname>%hsize-bump-factor%</varname>
+      <varvalue>1.1</varvalue></varpair>
+      <varpair><varname>%left-margin%</varname>
+      <varvalue>4pi</varvalue></varpair>
+      <varpair><varname>%right-margin%</varname>
+      <varvalue>4pi</varvalue></varpair>
+      <varpair><varname>%para-sep%</varname>
+      <varvalue>(/ %bf-size% 1.5)</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:VeryLargeTypePrintName</name>
+   <ID>print-VeryLargeType</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:VeryLargeTypePrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%visual-acuity%</varname>
+      <varvalue>"large-type"</varvalue></varpair>
+      <varpair><varname>%body-start-indent%</varname>
+      <varvalue>0pi</varvalue></varpair>
+      <varpair><varname>%head-after-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%head-before-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%hsize-bump-factor%</varname>
+      <varvalue>1.05</varvalue></varpair>
+      <varpair><varname>%left-margin%</varname>
+      <varvalue>2pi</varvalue></varpair>
+      <varpair><varname>%right-margin%</varname>
+      <varvalue>2pi</varvalue></varpair>
+      <varpair><varname>%paper-type%</varname>
+      <varvalue>"USlandscape"</varvalue></varpair>
+      <varpair><varname>%para-sep%</varname>
+      <varvalue>(/ %bf-size% 1.0)</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:CompactPrintName</name>
+   <ID>print-Compact</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:CompactPrintDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%body-start-indent%</varname>
+      <varvalue>0pi</varvalue></varpair>
+      <varpair><varname>%head-after-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%head-before-factor%</varname>
+      <varvalue>.125</varvalue></varpair>
+      <varpair><varname>%hsize-bump-factor%</varname>
+      <varvalue>1.05</varvalue></varpair>
+      <varpair><varname>%left-margin%</varname>
+      <varvalue>1pi</varvalue></varpair>
+      <varpair><varname>%right-margin%</varname>
+      <varvalue>1pi</varvalue></varpair>
+      <varpair><varname>%para-sep%</varname>
+      <varvalue>(/ %bf-size% 0.5)</varvalue></varpair>
+      <varpair><varname>%generate-book-toc-on-titlepage%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%book-titlepage-verso-elements%</varname>
+      <varvalue>("Title")</varvalue></varpair>
+      <varpair><varname>%book-titlepage-recto-elements%</varname>
+      <varvalue>("Title" "Subtitle" "Author" "Date")</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:UnnumberedChaptersAndSectionsName</name>
+   <ID>Print-NoChapterNumbers</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:UnnumberedChaptersAndSectionsDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:NumberedChaptersAndSectionsName</name>
+   <ID>Print-YesChapterNumbers</ID>
+   <validformats>
+      <format>$stdprint$</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:NumberedChaptersAndSectionsDescription</description>
+   <fileref>PRINT</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:MultiPageWebName</name>
+   <ID>htmlv1-!MultiPage</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:MultiPageWebDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:SinglePageWebName</name>
+   <ID>!htmlv1-SinglePage</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:SinglePageWebDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:SinglePageUnnumberedChaptersName</name>
+   <ID>htmlv1-!SingleNoChapterNumbers</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:SinglePageUnnumberedChaptersDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:SinglePageNumberedChaptersName</name>
+   <ID>htmlv1-!SingleYesChapterNumbers</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:SinglePageNumberedChaptersDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:SinglePageSimpleName</name>
+   <ID>htmlv1-!SingleClearTitleTocLot</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:SinglePageSimpleDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>($generate-book-lot-list$)</varname>
+      <varvalue>(list )</varvalue></varpair>
+      <varpair><varname>($generate-chapter-toc$)</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-titlepage%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-toc%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:MultiPageSimpleName</name>
+   <ID>htmlv1-MultiClearTitleTocLot</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:MultiPageSimpleDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>($generate-book-lot-list$)</varname>
+      <varvalue>(list )</varvalue></varpair>
+      <varpair><varname>($generate-chapter-toc$)</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-titlepage%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%generate-book-toc%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:MultiPageUnnumberedChaptersName</name>
+   <ID>htmlv1-MultiNoChapterNumbers</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:MultiPageUnnumberedChaptersDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:MultiPageNumberedChaptersName</name>
+   <ID>htmlv1-MultiYesChapterNumbers</ID>
+   <validformats>
+      <format>html</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:MultiPageNumberedChaptersDescription</description>
+   <fileref>HTML</fileref>
+   <variables>
+      <varpair><varname>%chapter-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>%section-autolabel%</varname>
+      <varvalue>#t</varvalue></varpair>
+      <varpair><varname>nochunks</varname>
+      <varvalue>#f</varvalue></varpair>
+      <varpair><varname>%show-comments%</varname>
+      <varvalue>#f</varvalue></varpair>
+   </variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+<stylesheet>
+   <name>rptgen:rptstylesheets:NoTransformName</name>
+   <ID>!NoTransform</ID>
+   <validformats>
+      <format>db</format>
+   </validformats>
+   <description>rptgen:rptstylesheets:NoTransformDescription</description>
+   <fileref></fileref>
+   <variables></variables>
+   <dsssl></dsssl>
+</stylesheet>
+
+</registry>
+
+</stylesheet_registry>

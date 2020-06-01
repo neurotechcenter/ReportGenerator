@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translations>
+  <locale id="af">
+      <tr id="TitleContent">Inhoudsopgawe</tr>
+  </locale>
+  <locale id="ca">
+      <tr id="TitleContent">Sumari</tr>
+  </locale>
+  <locale id="cs">
+      <tr id="TitleContent">Obsah</tr>
+  </locale>
+  <locale id="da">
+      <tr id="TitleContent">Indholdsfortegnelse</tr>
+  </locale>
+  <locale id="de">
+      <tr id="TitleContent">Inhaltsverzeichnis</tr>
+  </locale>
+  <locale id="el">
+      <tr id="TitleContent">Ðßíáêáò Ðåñéå÷ïìÝíùí</tr>
+  </locale>
+  <locale id="en">
+      <tr id="TitleContent">Table of Contents</tr>
+  </locale>
+  <locale id="es">
+      <tr id="TitleContent">Tabla de contenidos</tr>
+  </locale>
+  <locale id="et">
+      <tr id="TitleContent">Sisukord</tr>
+  </locale>
+  <locale id="eu">
+      <tr id="TitleContent">Edukien aurkibidea</tr>
+  </locale>
+  <locale id="fi">
+      <tr id="TitleContent">Sisällys</tr>
+  </locale>
+  <locale id="fr">
+      <tr id="TitleContent">Table des matières</tr>
+  </locale>
+  <!--
+  <locale id="he">
+      <tr id="TitleContent">תוכן העניינים</tr>
+  </locale>
+-->
+  <locale id="hu">
+      <tr id="TitleContent">Tartalom</tr>
+  </locale>
+  <locale id="id">
+      <tr id="TitleContent">Daftar Isi</tr>
+  </locale>
+  <locale id="it">
+      <tr id="TitleContent">Sommario</tr>
+  </locale>
+  <locale id="ja">
+      <tr id="TitleContent">目次</tr>
+  </locale>
+  <locale id="ko">
+      <tr id="TitleContent">차례</tr>
+  </locale>
+  <locale id="nl">
+      <tr id="TitleContent">Inhoudsopgave</tr>
+  </locale>
+  <locale id="nn">
+      <tr id="TitleContent">Innhald</tr>
+  </locale>
+  <locale id="no">
+      <tr id="TitleContent">Innholdsfortegnelse</tr>
+  </locale>
+  <locale id="pl">
+      <tr id="TitleContent">Spis treści</tr>
+  </locale>
+  <locale id="pt">
+      <tr id="TitleContent">Índice</tr>
+  </locale>
+  <locale id="ro">
+      <tr id="TitleContent">Cuprins</tr>
+  </locale>
+  <locale id="ru">
+      <tr id="TitleContent">Содержание</tr>
+  </locale>
+  <locale id="sk">
+      <tr id="TitleContent">Obsah</tr>
+  </locale>
+  <locale id="sl">
+      <tr id="TitleContent">Kazalo</tr>
+  </locale>
+  <locale id="sr">
+      <tr id="TitleContent">Sadržaj</tr>
+  </locale>
+  <locale id="sv">
+      <tr id="TitleContent">Innehållsförteckning</tr>
+  </locale>
+  <locale id="tr">
+      <tr id="TitleContent">İçindekiler</tr>
+  </locale>
+  <locale id="uk">
+      <tr id="TitleContent">Зміст</tr>
+  </locale>
+  <locale id="xh">
+      <tr id="TitleContent">Imigca Yemixholo</tr>
+  </locale>
+  <locale id="zh">
+      <tr id="TitleContent">目录</tr>
+  </locale>
+</translations>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>
+        /*<![CDATA[*/
+
+        p.Equation {
+            font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+            text-align: center; 
+        }
+
+        //]]>
+    </style>
+</head>
+
+<body>
+    <dplibrary>
+
+        <!-- NOTE: temporary in the template library until the DOM supports a source without template name -->
+        <dptemplate name="Equation">
+            <!-- filled with EquationContent template. -->
+            <hole id="Content" default-style-name="Equation">CONTENT</hole>
+        </dptemplate>
+
+        <!-- template used to fill the "Content" hole for the Equation main template -->
+        <dptemplate name="EquationContent">
+            <p class="Equation">
+                <hole id="Content">IMAGE</hole>
+            </p>
+        </dptemplate>
+
+    </dplibrary>
+</body>
+
+</html>

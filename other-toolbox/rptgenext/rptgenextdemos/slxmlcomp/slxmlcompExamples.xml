@@ -1,0 +1,23 @@
+<demosection>
+   <demoitem>
+      <label>Compare and Merge Simulink Models</label>
+      <type>other</type>
+      <source>slxml_compare_merge</source>
+      <file>../../rptgenext/rptgenextdemos/slxmlcomp/html/slxml_compare_merge.html</file>
+      <callback>slxml_compare_merge</callback>
+   </demoitem>
+   <demoitem>
+      <label>Compare and Merge Simulink Models Containing Stateflow</label>
+      <type>other</type>
+      <source>slxml_sfcar</source>
+      <file>../../rptgenext/rptgenextdemos/slxmlcomp/html/slxml_sfcar.html</file>
+      <callback>slxml_sfcar</callback>
+   </demoitem>
+   <demoitem>
+      <label>Resolve Conflicts with Simulink Three-Way Merge</label>
+      <type>other</type>
+      <source>slxml_three_way_merge</source>
+      <file>../../rptgenext/rptgenextdemos/slxmlcomp/html/slxml_three_way_merge.html</file>
+      <callback>slxml_three_way_merge</callback>
+   </demoitem>
+</demosection>

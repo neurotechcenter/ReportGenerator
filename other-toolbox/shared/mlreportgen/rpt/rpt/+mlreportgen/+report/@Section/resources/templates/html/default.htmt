@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>/*<![CDATA[*/ 
+
+h1.SectionTitle1, p.SectionTitle1 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(54,95,145);
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 24pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+h2.SectionTitle2, p.SectionTitle2 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(79,129,189);
+    font-size: 13pt;
+    font-weight: bold;
+    margin-top: 10pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+h3.SectionTitle3, p.SectionTitle3 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(79,129,189);
+    font-size: 11pt;
+    font-weight: bold;
+    margin-top: 10pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+h4.SectionTitle4, p.SectionTitle4 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(79,129,189);
+    font-size: 11pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 10pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+h5.SectionTitle5, p.SectionTitle5 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(36,63,96);
+    font-size: 11pt;
+    margin-top: 10pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+h6.SectionTitle6, p.SectionTitle6 {
+    font-family: Cambria, 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans CJK SC', 'Noto Sans CJK KR';
+    color: rgb(36,63,96);
+    font-size: 11pt;
+    font-style: italic;
+    margin-top: 10pt;
+    margin-bottom: 0pt;
+    white-space: pre;
+}
+
+span.an_sect1:before {content: counter(sect1);}
+
+span.an_sect2:before {content: counter(sect2);}
+
+span.an_sect3:before {content: counter(sect3);}
+
+span.an_sect4:before {content: counter(sect4);}
+
+span.an_sect5:before {content: counter(sect5);}
+
+span.an_sect6:before {content: counter(sect6);}
+    
+        //]]>
+    </style>
+</head>
+<body>
+  <dplibrary>
+    
+    <dptemplate name="Section1">
+        <hole id="Title" default-style-name="SectionTitle1">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    <dptemplate name="Section2">
+        <hole id="Title" default-style-name="SectionTitle2">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    <dptemplate name="Section3">
+        <hole id="Title" default-style-name="SectionTitle3">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    <dptemplate name="Section4">
+        <hole id="Title" default-style-name="SectionTitle4">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    <dptemplate name="Section5">
+        <hole id="Title" default-style-name="SectionTitle5">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    <dptemplate name="Section6">
+        <hole id="Title" default-style-name="SectionTitle6">TITLE</hole>
+        <hole id="Content">CONTENT</hole>
+    </dptemplate>
+    
+    <dptemplate name="SectionNumberedTitle1">
+         <h1 class="SectionTitle1" style="counter-increment:sect1;counter-reset:figure table;"
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber stream-name="h1" format="n"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h1>
+    </dptemplate>            
+    
+    <dptemplate name="SectionTitle1">
+         <h1 class="SectionTitle1" 
+         ><hole id="Content">title text</hole
+         ></h1>
+    </dptemplate>         
+    
+    <dptemplate name="SectionNumberedTitle2">
+         <h2 class="SectionTitle2" 
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber stream-name="h1" format="n"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h2"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h2>
+    </dptemplate>         
+    <dptemplate name="SectionTitle2">
+         <h2 class="SectionTitle2" 
+         ><hole id="Content" default-style-name="SectionTitle1">title text</hole
+         ></h2>
+    </dptemplate>         
+    
+    <dptemplate name="SectionNumberedTitle3">
+         <h3 class="SectionTitle3" 
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber stream-name="h1" format="n"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h2"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h3"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h3>
+    </dptemplate>         
+    <dptemplate name="SectionTitle3">
+         <h3 class="SectionTitle3" 
+         ><hole id="Content" default-style-name="SectionTitle1">title text</hole
+         ></h3>
+    </dptemplate>         
+    
+    <dptemplate name="SectionNumberedTitle4">
+         <h4 class="SectionTitle4" 
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber format="n" stream-name="h1"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h2"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h3"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h4"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h4>
+    </dptemplate>         
+    <dptemplate name="SectionTitle4">
+         <h4 class="SectionTitle4" 
+         ><hole id="Content" default-style-name="SectionTitle1">title text</hole
+         ></h4>
+    </dptemplate>         
+
+    <dptemplate name="SectionNumberedTitle5">
+         <h5 class="SectionTitle5" 
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber format="n" stream-name="h1"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h2"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h3"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h4"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h5"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h5>
+    </dptemplate>         
+    <dptemplate name="SectionTitle5">
+         <h5 class="SectionTitle5" 
+         ><hole id="Content" default-style-name="SectionTitle1">title text</hole
+         ></h5>
+    </dptemplate>         
+    
+    <dptemplate name="SectionNumberedTitle6">
+         <h6 class="SectionTitle6" 
+         ><hole id="NumberPrefix">NUMBER_PREFIX</hole
+         ><autonumber format="n" stream-name="h1"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h2"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h3"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h4"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h5"></autonumber><span>.</span
+         ><autonumber format="n" stream-name="h6"></autonumber
+         ><hole id="NumberSuffix" >NUMBER_SUFFIX</hole
+         ><hole id="Content">TITLE CONTENT</hole
+         ></h6>
+    </dptemplate>         
+    <dptemplate name="SectionTitle6">
+         <h6 class="SectionTitle6" 
+         ><hole id="Content" default-style-name="SectionTitle1">title text</hole
+         ></h6>
+    </dptemplate>         
+          
+  </dplibrary>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "rptview": {
+    "inputs": [{
+      "name": "file",
+      "kind": "required",
+      "type": [["filepath=*.doc,*.docx,*.dotx,*.rtf,*.ppt,*.pptx,*.pptm,*.potx,*.htmx,*.htmtx,*.zip,*.pdftx,*.pdf,*.html,*.htm"],
+      ["char"]]
+    }]
+  },
+  "docview": {
+    "inputs": [{
+      "name": "file",
+      "kind": "required",
+      "type": [["filepath=*.doc,*.docx,*.dotx,*.rtf"],
+      ["char"]]
+    }]
+  }
+}

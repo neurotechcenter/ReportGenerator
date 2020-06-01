@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translations>
+    <locale id="af">
+        <tr id="TitleNumberPrefix">Hoofdstuk </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="ca">
+        <tr id="TitleNumberPrefix">Capítol </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="cs">
+        <tr id="TitleNumberPrefix">Kapitola </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="da">
+        <tr id="TitleNumberPrefix">Kapitel </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="de">
+        <tr id="TitleNumberPrefix">Kapitel </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="el">
+        <tr id="TitleNumberPrefix">Κεφάλαιο </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="en">
+        <tr id="TitleNumberPrefix">Chapter </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="es">
+        <tr id="TitleNumberPrefix">Capítulo </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>       
+    <locale id="et">
+        <tr id="TitleNumberPrefix">Peatükk </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="eu">
+        <tr id="TitleNumberPrefix">Atala </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="fi">
+        <tr id="TitleNumberPrefix">Luku </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="fr">
+        <tr id="TitleNumberPrefix">Chapitre </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>
+    <!--
+    <locale id="he">
+        <tr id="TitleNumberPrefix">פרק </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    -->
+    <locale id="hu">
+        <tr id="TitleNumberPrefix">Fejezet </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="id">
+        <tr id="TitleNumberPrefix">Bab </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="it">
+        <tr id="TitleNumberPrefix">Capitolo </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="ja">
+        <tr id="TitleNumberPrefix">第</tr>
+        <tr id="TitleNumberSuffix">章 </tr>
+    </locale>   
+    <locale id="ko">
+        <tr id="TitleNumberPrefix">제</tr>
+        <tr id="TitleNumberSuffix"> 장 </tr>
+    </locale>   
+    <locale id="nl">
+        <tr id="TitleNumberPrefix">Hoofdstuk </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="nn">
+        <tr id="TitleNumberPrefix">Kapittel </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="no">
+        <tr id="TitleNumberPrefix">Kapittel </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="pl">
+        <tr id="TitleNumberPrefix">Rozdział </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="pt">
+        <tr id="TitleNumberPrefix">Capítulo </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="ro">
+        <tr id="TitleNumberPrefix">Cap. </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="ru">
+        <tr id="TitleNumberPrefix">Глава </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="sk">
+        <tr id="TitleNumberPrefix">Kapitola </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="sl">
+        <tr id="TitleNumberPrefix">Poglavje </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="sr">
+        <tr id="TitleNumberPrefix">Poglavlje </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="sv">
+        <tr id="TitleNumberPrefix">Kapitel </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="tr">
+        <tr id="TitleNumberPrefix">Bölüm </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="uk">
+        <tr id="TitleNumberPrefix">Розділ </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="xh">
+        <tr id="TitleNumberPrefix">Isiqendu </tr>
+        <tr id="TitleNumberSuffix">. </tr>
+    </locale>   
+    <locale id="zh">
+        <tr id="TitleNumberPrefix">第</tr>
+        <tr id="TitleNumberSuffix">章 </tr>
+    </locale>   
+</translations>

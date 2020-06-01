@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 MathWorks, Inc. -->
+<settings name="comparisons" 
+          visible="false"          
+          version="1" 
+          xmlns="urn:mathworks.matlab.settings" 
+          xsi:schemaLocation="urn:mathworks.matlab.settings settings.xsd"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <settings name="xml" visible="false">
+        <key name="JVMMaxHeapSize" visible="false">
+            <int32>
+                <value>1024</value>
+            </int32>
+        </key>
+        <key name="JVMInitHeapSize" visible="false">
+            <int32>
+                <value>128</value>
+            </int32>
+        </key>
+    </settings>
+</settings>
