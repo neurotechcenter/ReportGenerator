@@ -35,7 +35,7 @@ try
    % [nii.img,nii.XYZ ]=spm_read_vols(nii);
 catch e
     %warning 'Input image transformation is not orthogonal; reslicing image'
-    reslice_nii(niftifile,'buff.nii');
-    nii=load_nii('buff.nii');
+    reslice_nii(niftifile,fullfile(folderPath,'buff.nii'));
+    nii=load_nii(fullfile(folderPath,'buff.nii'));
 end
 end
