@@ -11,6 +11,7 @@ classdef ReportPreviewer < handle
     end
     
     properties (Access = protected)
+        currPath
         gui
         previewer
         list
@@ -48,6 +49,7 @@ classdef ReportPreviewer < handle
         function obj = ReportPreviewer(varargin)
             %% Create interface
             obj.loadSubjectPath();
+            obj.currPath = pwd;
             obj.gui = figure('units','normalized','outerposition',[1/6 1/3 2/3 2/3],...
                 'Name',['Report Previewer: ',obj.subj],'NumberTitle', 'off', ...
                 'MenuBar', 'none', ...
@@ -400,6 +402,7 @@ classdef ReportPreviewer < handle
            %% Creating Report from template
             import mlreportgen.ppt.*;
             
+            cd(obj.currPath);
             slidesFile =fullfile(obj.subjPath,[obj.subj '-summary.pptx']);% *****
             slides = Presentation(slidesFile,'./Major-programs/SubjectReport-template');
             
@@ -413,7 +416,7 @@ classdef ReportPreviewer < handle
                 obj.isRunning = false;
                 return
             end
-            replace(presentationTitleSlide,'Title',['SEEG CASE',newline,obj.subj]);% *****
+            replace(presentationTitleSlide,'Title',obj.subj);% *****
             
             subtitleText = Paragraph(sprintf('Generated at %s', datestr(now,'HH:MM')));% *****
             replace(presentationTitleSlide,'Subtitle',subtitleText);
@@ -441,7 +444,6 @@ classdef ReportPreviewer < handle
             %% Creating output folder and initializing Slice
             str = fullfile(obj.subjPath,'ReportFigures_raw');
             if(exist(str,'dir')==7)
-                rmdir(fullfile(obj.subjPath,'ReportFigures_raw'), 's');
                 for trail=1:4
                     status=rmdir(str, 's');
                     if status==1
@@ -450,7 +452,11 @@ classdef ReportPreviewer < handle
                     pause(.1*trail)
                 end
                 if status==0
-                    warning('mytest:leakedDir','Warning failed to clean up directory %s', str);
+                    delete(wb)
+                    errordlg(sprintf(['Check if [ ReportFigures_raw ] is open, \n',...
+                        'if so, close it and try again.']));
+                    obj.isRunning = false;
+                    return
                 end
             end
             mkdir(fullfile(obj.subjPath,'ReportFigures_raw'));
@@ -475,9 +481,9 @@ classdef ReportPreviewer < handle
                 drawnow
                 set(axModel,'Parent',v);
                 cmap = colormap(axModel);
-                stIndex = length(cmap);
+                stIndex = size(cmap,1);
                 addcmap = colormap(hsv(size(obj.StripInfo,2)));
-                lcmap = length(addcmap);
+                lcmap = size(addcmap,1);
                 newcmap = zeros(lcmap,3);
                 for i = 1:floor(lcmap/2)
                     newcmap(2*i-1,:) = addcmap(i,:);
