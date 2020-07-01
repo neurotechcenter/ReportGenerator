@@ -260,6 +260,7 @@ classdef SliceViewer3D < uix.Grid
                     %line(xfit,yfit,zfit,'LineWidth',3,'Color','w')
                     cmap = colormap(obj.Slice3D);
                     plotBallsOn3DImage(obj.Slice3D,[xfit',yfit',zfit'],length(cmap)-1,2); %length - 1 is yellow  
+                    plotBallsOn3DImage(obj.Slice3D,[xfit(end)',yfit(end)',zfit(end)'],length(cmap)-2,2); %length - 2 is black
                     %auto 3D model Rotate
                     centerGrid = mean(currGrid,1);
                     [azimuth,elevation] = cart2sph(centerGrid(1),centerGrid(2),centerGrid(3));
@@ -293,7 +294,7 @@ classdef SliceViewer3D < uix.Grid
                         obj.plot3DModel();
                     end
                     cmap = colormap(obj.Slice3D);
-                    plotBallsOn3DImage(obj.Slice3D,currGrid,length(cmap)-2,2); %length(cmap)-2 is red
+                    plotBallsOn3DImage(obj.Slice3D,currGrid,length(cmap)-3,2); %length(cmap)-3 is red
                     obj.ChOnPlot = 0;
                     
                     %auto 3D model Rotate
@@ -317,7 +318,7 @@ classdef SliceViewer3D < uix.Grid
                     delete(wb)
                 else
                     cmap = colormap(obj.Slice3D);
-                    plotBallsOn3DImage(obj.Slice3D,obj.ChOnPlot,length(cmap)-2,2); %length(cmap)-2 is red
+                    plotBallsOn3DImage(obj.Slice3D,obj.ChOnPlot,length(cmap)-3,2); %length(cmap)-3 is red
                 end
                 cmap = colormap(obj.Slice3D);
                 plotBallsOn3DImage(obj.Slice3D,currCh,length(cmap),2); %length(cmap) is green
@@ -335,10 +336,11 @@ classdef SliceViewer3D < uix.Grid
                 %zoom(2)
                 % a very strange solution to color
                 cmap = colormap(obj.Slice3D);
+                cmap(end+1,:) = [0,0,0];
                 cmap(end+1,:) = [1,1,0];
                 cmap(end+1,:) = [0,1,0];
                 colormap(obj.Slice3D,cmap);
-                plotBallsOn3DImage(obj.Slice3D,[0,0,0],length(cmap),1);
+                plotBallsOn3DImage(obj.Slice3D,[0,0,0],length(cmap),0.1);
             end
         end
        

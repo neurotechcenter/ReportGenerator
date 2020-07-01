@@ -26,10 +26,12 @@ classdef ReportPreviewer < handle
         electrodes
         electrodeNames
         counts
+        reportName
         
         origContrast = []
         whichSlider
         isRunning = false
+        pdfOff
         
         %variables for 3d grid modeling
         gridIndex
@@ -40,6 +42,7 @@ classdef ReportPreviewer < handle
         %variables for electrode type options
         eTypeScroll
         eTypeGrid
+        eTypeButton
         butGroups
         tbg
     end
@@ -48,7 +51,11 @@ classdef ReportPreviewer < handle
     methods
         function obj = ReportPreviewer(varargin)
             %% Create interface
-            obj.loadSubjectPath();
+            fileStats = obj.loadSubjectPath();
+            if(fileStats == 0)
+                delete(obj)
+                return
+            end
             obj.currPath = pwd;
             obj.gui = figure('units','normalized','outerposition',[1/6 1/3 2/3 2/3],...
                 'Name',['Report Previewer: ',obj.subj],'NumberTitle', 'off', ...
@@ -110,19 +117,28 @@ classdef ReportPreviewer < handle
             %set(displayGrid,'Heights',[-1,45]);
                 %}
             outputPanel = uix.Panel('Parent',optionBoxes,'Title','Output Options','Padding',5);
-                %Create output option grid (2X3)
+                %Create output option grid (1X3)
                 pdfGrid = uix.Grid('Parent',outputPanel,'Spacing',5,'Padding',5);  
                 uicontrol('Parent',pdfGrid,'Style','text','String','Additional PDF report');
-                    pdfConvertButton = uicontrol('Parent',pdfGrid,'Style','pushbutton','String','Generate');
-                    addlistener(pdfConvertButton,'Value','PostSet',@obj.pdfConvertPressed);
-                set(pdfGrid,'Widths',[-1,-1],'Heights',30);
+                bgPDF = uibuttongroup('Parent',pdfGrid);
+                uicontrol('Parent',bgPDF,'Style','radiobutton','String','On',...
+                                    'Position',[10,5,100,20]);
+                obj.pdfOff = uicontrol('Parent',bgPDF,'Style','radiobutton','String','Off',...
+                                    'Position',[110,5,100,20]);
+                set(pdfGrid,'Widths',[-1,-2],'Heights',30);
+                set(bgPDF,'SelectedObject',obj.pdfOff);
                 
             set(optionBoxes,'Heights',[-1,-1]);
             %End options tab with VBox
             %Create Electrode type tab
-            eTypePanel = uix.Panel('Parent',tabsPanel,'Title','Electrode Type Options','Padding',5);
-            obj.eTypeScroll = uix.ScrollingPanel('Parent',eTypePanel); %allow rollable object under eTypePanel
-            obj.eTypeGrid = uix.Grid('Parent',obj.eTypeScroll);
+            eTypePanel = uix.Panel('Parent',tabsPanel,'Title','Electrode Type Options for 3D model','Padding',5);
+            eTypeVBox = uix.VBox('Parent',eTypePanel,'Spacing',5);
+            obj.eTypeScroll = uix.ScrollingPanel('Parent',eTypeVBox); %allow rollable object under eTypePanel
+            obj.eTypeGrid = uix.Grid('Parent',obj.eTypeScroll); %Scroll panel created first, contents added later
+            obj.eTypeButton = uicontrol('Parent',eTypeVBox,'Style','PushButton',...
+                'String','Apply Changes');
+            addlistener(obj.eTypeButton,'Value','PostSet',@obj.eTypeApplyPressed);
+            set(eTypeVBox,'Heights',[-1,25]);
             %End electrode type tab
             
             waitbar(0.5,wb,'Creating panels');
@@ -141,7 +157,7 @@ classdef ReportPreviewer < handle
                 'BackgroundColor','g');
                 addlistener(activateButton,'Value','PostSet',@obj.generateReport);
             set(buttonLayer,'Heights',[-1,45,45,30]);
-            tabsPanel.TabTitles = {'Channel List', 'Saving Options', 'Grid Options'};
+            tabsPanel.TabTitles = {'Channel List', 'Imaging Options', 'Grid Options'};
             tabsPanel.TabWidth = 85;
             %End tab GUI
             waitbar(0.75,wb,'Creating viewer');
@@ -168,14 +184,16 @@ classdef ReportPreviewer < handle
     
     methods (Access = private)
         
-        function loadSubjectPath(obj,~,~)
+        function stats = loadSubjectPath(obj,~,~)
             if(obj.isRunning)
                 warndlg('Wait for the generation to complete','Warning');
+                stats = 0;
                 return
             end
             isPath=uigetdir();
             if (isPath == 0)
                 errordlg('No subject folder was selected','File Error');
+                stats = 0;
                 return
             end
             imgDir = dir(fullfile(isPath,'**/*.img'));
@@ -191,27 +209,29 @@ classdef ReportPreviewer < handle
             end
             if(isempty(imgDir)||isempty(dataDir))
                 errordlg(sprintf([errormessage,'Please check your subject folder']),'File Missing');
+                stats = 0;
+                return
+            end
+            %import Electrodes
+            isStripInfo = electrodesFetch(isPath);
+            if(isempty(isStripInfo))
+                stats = 0;
+                return
+            end
+             %Read the MRI nifiti files
+            isImagingFile = niiGene(isPath);
+            if(isempty(fieldnames(isImagingFile)))
+                stats = 0;
                 return
             end
             
+            
+            %TILL THIS POINT, FILES ARE VALID
+            stats = 1;
             obj.subjPath=isPath;
             [~,obj.subj]=fileparts(obj.subjPath);
-            %import Electrodes
-            isStripInfo = electrodesFetch(obj.subjPath);
-            if(isempty(isStripInfo))
-                return
-            else
-                obj.StripInfo = isStripInfo;
-            end
-            
-             %Read the MRI nifiti files
-            isImagingFile = niiGene(obj.subjPath);
-            if(isempty(fieldnames(isImagingFile)))
-                return
-            else
-                obj.ImagingFile = isImagingFile;
-            end
-            
+            obj.StripInfo = isStripInfo;
+            obj.ImagingFile = isImagingFile;
             %3D model change as well (initialized)
             obj.sv3d.subjPath = obj.subjPath;
             %delete(obj.sv3d.Children(4))
@@ -363,6 +383,13 @@ classdef ReportPreviewer < handle
             end
         end
         
+        function eTypeApplyPressed(obj,~,~)
+            set(obj.eTypeButton,'Enable','off');
+            obj.buttonModelOff.Value = 1;
+            obj.buttonModelOn.Value = 1;
+            set(obj.eTypeButton,'Enable','on');
+        end
+        
         %% Create button group
         function redPressed(obj,~,~)
             obj.sv3d.CursorUpdate(1) = {'r'};
@@ -398,12 +425,20 @@ classdef ReportPreviewer < handle
                 return
             end
             obj.isRunning = true;
-            wb = waitbar(0,'Loading from template...');
            %% Creating Report from template
             import mlreportgen.ppt.*;
             
             cd(obj.currPath);
-            slidesFile =fullfile(obj.subjPath,[obj.subj '-summary.pptx']);% *****
+            opts.Interpreter = 'tex';
+            obj.reportName = inputdlg({['\fontsize{12}' 'Please enter your report name (note that same name file will be lost)']},...
+                            'Report Naming',[1,50],{[obj.subj '-summary']},opts);
+            if(isempty(obj.reportName))
+                warndlg('Please enter a valid report name','Empty Input');
+                obj.isRunning = false;
+                return
+            end
+            wb = waitbar(0,'Loading from template...');
+            slidesFile =fullfile(obj.subjPath,[obj.reportName{1},'.pptx']);% *****
             slides = Presentation(slidesFile,'./Major-programs/SubjectReport-template');
             
             % Title page and related page of the summary pdf
@@ -412,7 +447,7 @@ classdef ReportPreviewer < handle
             catch e
                 delete(wb)
                 errordlg(sprintf(['Check if [ %s ] is open, \n',...
-                    'if so, close it and try again.'],[obj.subj '-summary.pptx']));
+                    'if so, close it and try again.'],[obj.reportName{1},'.pptx']));
                 obj.isRunning = false;
                 return
             end
@@ -495,7 +530,7 @@ classdef ReportPreviewer < handle
                 
                 cmap = [cmap;newcmap];
                 colormap(axModel,cmap);
-                plotBallsOn3DImage(axModel,[0,0,0],stIndex,1);
+                plotBallsOn3DImage(axModel,[0,0,0],stIndex,0.1);
                 
                 for gridIdx = 1:size(obj.StripInfo,2)
                     electrodesOnG = obj.StripInfo{1,gridIdx};
@@ -529,9 +564,16 @@ classdef ReportPreviewer < handle
                 cb = colorbar(axModel,'Limits',[correctedStart cEnd],'Color',[1,1,1]);
                 cb.Ticks = [correctedStart+49/100:49/50:cEnd-49/100];
                 cb.TickLabels = obj.StripInfo(2,:)';
+                %cb.FontWeight = 'bold';
+                resolu = get(0,'screensize');
+                windowSize = resolu .* v.Position;
+                cb.FontSize = 12*windowSize(4)/1080;
+                
+                
+                
                 %alpha(axModel,0.75);
                 
-                saveas(v,fullfile(obj.subjPath,'ReportFigures_raw','Overview'),'png');
+                export_fig(v,fullfile(obj.subjPath,'ReportFigures_raw','Overview'),'-png','-nocrop');
                 faceName = {'Posterior','Right','Anterior','Left','Superior','Inferior'};
                 for faceIndex = 1:6
                     waitbar(faceIndex/6,wb,'Creating 3D model face view...');
@@ -539,7 +581,15 @@ classdef ReportPreviewer < handle
                     if(faceIndex>4)
                         view(axModel,0,(2*(faceIndex-4)-1)*90)
                     end
-                    saveas(v,fullfile(obj.subjPath,'ReportFigures_raw',faceName{faceIndex}),'png');
+                    try
+                    export_fig(v,fullfile(obj.subjPath,'ReportFigures_raw',faceName{faceIndex}),'-png','-nocrop');
+                    catch e
+                        delete(v);
+                        delete(wb);
+                        errordlg('Fail to create the face slice','generateReport error');
+                        obj.isRunning = false;
+                        return
+                    end
                     plot2 = Picture(fullfile(obj.subjPath,'ReportFigures_raw',...
                                                 [faceName{faceIndex},'.png']));
                     pictureSlide = add(slides,'Title and Content');
@@ -618,37 +668,37 @@ classdef ReportPreviewer < handle
                 winopen(slidesFile);
             end
            
-            msgbox('Generation Completed');
+            msgbox(sprintf('[ %s ] report generation completed',[obj.reportName{1},'.pptx']));
+            if(obj.pdfOff.Value == 0)
+                obj.pdfConvertPressed();
+            end
             obj.isRunning = false;
         end
 
         function pdfConvertPressed(obj,~,~)
-            if(obj.isRunning)
-                warndlg('Wait for the generation to completed','Warning');
-                return
-            end
-            
             % Additionaly generate a PDF
             [~,obj.subj]=fileparts(obj.subjPath);
-            
+            %{
             if(exist(fullfile(obj.subjPath,[obj.subj,'-summary.pptx']),'file')~=2)
                 errordlg(sprintf(['[ %s ] does not exist, \n',...
                     'generate the subject report first and try again.'],[obj.subj '-summary.pptx']));
                 return
             end
-            
+            %}
             wb = waitbar(0,sprintf('Generating PDF,\n it might take a few minutes...'));
-   
+            
             try
-            pptview(fullfile(obj.subjPath,[obj.subj '-summary.pptx']),'converttopdf')
+                pptview(fullfile(obj.subjPath,[obj.reportName{1},'.pptx']),'converttopdf')
             catch e
-                delete(wb);
-                errordlg(sprintf(['Unable to convert [ %s ] to PDF, \n',...
-                    'This PDF converter is not compatible with your computer.'],[obj.subj '-summary.pptx']));
-                return
+                if(exist(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'file')~=2)
+                    delete(wb);
+                    errordlg(sprintf(['Unable to convert [ %s ] to PDF, \n',...
+                        'This feature requires a valid Microsoft PowerPoint to be instailed.'],[obj.reportName{1},'.pptx']));
+                    return
+                end
             end
             waitbar(1,wb,'Opening PDF...');
-            rptview(fullfile(obj.subjPath,[obj.subj,'-summary.pdf']),'pdf')
+            rptview(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'pdf')
             delete(wb);
         end
         
