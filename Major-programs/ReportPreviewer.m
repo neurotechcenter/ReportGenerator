@@ -430,7 +430,7 @@ classdef ReportPreviewer < handle
             
             cd(obj.currPath);
             opts.Interpreter = 'tex';
-            obj.reportName = inputdlg({['\fontsize{12}' 'Please enter your report name (note that same name file will be lost)']},...
+            obj.reportName = inputdlg({['\fontsize{12}' 'Please enter your report name (avoid repeating names with existed files)']},...
                             'Report Naming',[1,50],{[obj.subj '-summary']},opts);
             if(isempty(obj.reportName))
                 warndlg('Please enter a valid report name','Empty Input');

@@ -240,7 +240,8 @@ classdef SliceViewer < uix.Grid
         function click(obj,~,eventdata)
             cp=([(eventdata.IntersectionPoint([1 2])) obj.Slice]);
             [~,o_order]=sort(obj.ViewAxis);
-            obj.CursorPosition=cp(o_order);
+            %obj.CursorPosition=cp(o_order);*********temp disable of
+            %interaction
             %disp(obj.CursorPosition);
             if(~isempty(obj.CursorChangedFcn))
                 obj.CursorChangedFcn(obj, obj.CursorPosition);

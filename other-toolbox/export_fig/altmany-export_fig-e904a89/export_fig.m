@@ -312,6 +312,7 @@ function [imageData, alpha] = export_fig(varargin) %#ok<*STRCL1>
     % Display promo (just once!)
     persistent promo
     if isempty(promo) && ~isdeployed
+        %{
         website = 'https://UndocumentedMatlab.com';
         link = ['<a href="' website];
         msg = 'If you need expert assistance with Matlab, please consider my professional consulting/training services';
@@ -320,6 +321,7 @@ function [imageData, alpha] = export_fig(varargin) %#ok<*STRCL1>
         msg = regexprep(msg,{'consulting','training'},[link '/$0">$0</a>']);
         %warning('export_fig:promo',msg);
         disp(['[' 8 msg ']' 8]);
+        %}
         promo = true;
     end
 
