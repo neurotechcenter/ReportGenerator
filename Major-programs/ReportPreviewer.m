@@ -176,6 +176,7 @@ classdef ReportPreviewer < handle
                 %3D model initialization
                 obj.sv3d.subjPath = obj.subjPath;
                 obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0}; 
+                obj.onListSelection();
             end
             waitbar(1,wb,'Done');
             delete(wb)
