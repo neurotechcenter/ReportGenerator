@@ -250,7 +250,7 @@ classdef SliceViewer3D < uix.Grid
                     hlength = 100;
                     trimIndex{1} = find(xfit<Mx(1)+hlength & xfit>Mi(1)-hlength);
                     trimIndex{2} = find(yfit<Mx(2)+hlength & yfit>Mi(2)-hlength);
-                    trimIndex{3} = find(zfit<Mx(3)+hlength & yfit>Mi(3)-hlength);
+                    trimIndex{3} = find(zfit<Mx(3)+hlength & zfit>Mi(3)-hlength);
                     [~,tIndex] = min([length(trimIndex{1}),...
                         length(trimIndex{2}),length(trimIndex{3})]);
                     trim = trimIndex{tIndex};
