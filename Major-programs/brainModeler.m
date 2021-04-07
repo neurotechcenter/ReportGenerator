@@ -7,7 +7,7 @@ errormessage = [];
 try
     xfrm_matrices=importdata(fullfile(subjPath,'/IMAGING/MATLAB/xfrm_matrices'));
 catch e
-    errormessage = [errormessage,...
+    m = [errormessage,...
         sprintf('---Missing transformation matrices [xfrm_matrices] in path: \n\t%s\n\n',...
         fullfile(subjPath,'/IMAGING/MATLAB/'))];
 end
@@ -27,55 +27,71 @@ catch e
         sprintf('---Missing annotation file [lh/rh.aparc.annot] in path: \n\t%s\n\n',...
         fullfile(subjPath,'/IMAGING/segmentation/label/'))];
 end   
+
+
+if(isempty(errormessage))
+     %% 3D modeling
+    vox2ras = xfrm_matrices(1:4, :);
+    vox2rastkr = xfrm_matrices(5:8, :);
+
+    % [~,vox2ras]=system(['mri_info --vox2ras ' fullfile(segmentationFolder,'SUBJECT','')] );
+    % [~,vox2rastkr]=system(['mri_info --vox2ras-tkr ' fullfile(segmentationFolder,'SUBJECT','')] );%3d model is in ras-tkr format, we want RAS coordinates
+
+    tkr2ras=vox2ras*inv(vox2rastkr);
+    %[LHtempvert, LHtemptri] = read_surf(pathToLhPial);
+    %[RHtempvert, RHtemptri] = read_surf(pathToRhPial);
+
+    cortex.vert=[LHtempvert; RHtempvert];
+    cortex.vert=(tkr2ras*[cortex.vert(:,1), cortex.vert(:,2), cortex.vert(:,3), ones(size(cortex.vert, 1), 1)]')';
+    cortex.vert=cortex.vert(:,1:3);
+    LHtemptri = LHtemptri + 1;
+    RHtemptri = RHtemptri + 1; %Freesurfer indexing from 0, mat from 1.
+
+    adjustedRHtemptri = RHtemptri + size(LHtempvert, 1);
+    cortex.tri = [LHtemptri; adjustedRHtemptri];
+
+    Project.Model=cortex;
+    %[~,llabel,lct]=read_annotation(fullfile(subjPath,'/IMAGING/segmentation/label/lh.aparc.annot'));
+    %[~,rlabel,rct]=read_annotation(fullfile(subjPath,'/IMAGING/segmentation/label/rh.aparc.annot'));
+    %lhtri=lhtri+1;
+    %rhtri=rhtri+1+size(lhtri,1);
+    names=[lct.struct_names(:)' rct.struct_names(:)'];
+    identifiers=[lct.table(:,5); rct.table(:,5)];
+    u_identifiers=unique(identifiers);
+    colortable=[lct.table(:,1:3); rct.table(:,1:3)]/255;
+    u_colortable=zeros(numel(u_identifiers),3);
+    for i=1:length(u_identifiers)
+        u_colortable(i,:)=colortable(find(identifiers == u_identifiers(i),1),:);
+    end
+
+    Project.Annotation=[llabel; rlabel];
+    Project.AnnotationLabel=struct('Name',uniqueStrCell(names)','Identifier',num2cell(u_identifiers),'PreferredColor',num2cell(u_colortable,2));
+
+    
+end
+
+
+
 if(~isempty(errormessage))
-    errormessage = [errormessage,'Please check and reorganize your subject folder'];
-    axModel = gobjects;
-    return;
+    matfile=fullfile(subjPath,'/IMAGING/brain.mat');
+    if(exist(matfile,'file'))
+        load(matfile,'cortex','annotation','annotationlabel');
+        Project.Model=cortex;
+        Project.Annotation=annotation;
+        Project.AnnotationLabel=annotationlabel;
+        errormessage=[];
+    else
+        errormessage = [errormessage,'Please check and reorganize your subject folder'];
+        axModel = gobjects;
+        return;
+    end
 end
-
- %% 3D modeling
-vox2ras = xfrm_matrices(1:4, :);
-vox2rastkr = xfrm_matrices(5:8, :);
-
-% [~,vox2ras]=system(['mri_info --vox2ras ' fullfile(segmentationFolder,'SUBJECT','')] );
-% [~,vox2rastkr]=system(['mri_info --vox2ras-tkr ' fullfile(segmentationFolder,'SUBJECT','')] );%3d model is in ras-tkr format, we want RAS coordinates
-
-tkr2ras=vox2ras*inv(vox2rastkr);
-%[LHtempvert, LHtemptri] = read_surf(pathToLhPial);
-%[RHtempvert, RHtemptri] = read_surf(pathToRhPial);
-
-cortex.vert=[LHtempvert; RHtempvert];
-cortex.vert=(tkr2ras*[cortex.vert(:,1), cortex.vert(:,2), cortex.vert(:,3), ones(size(cortex.vert, 1), 1)]')';
-cortex.vert=cortex.vert(:,1:3);
-LHtemptri = LHtemptri + 1;
-RHtemptri = RHtemptri + 1; %Freesurfer indexing from 0, mat from 1.
-
-adjustedRHtemptri = RHtemptri + size(LHtempvert, 1);
-cortex.tri = [LHtemptri; adjustedRHtemptri];
-
-Project.Model=cortex;
-%[~,llabel,lct]=read_annotation(fullfile(subjPath,'/IMAGING/segmentation/label/lh.aparc.annot'));
-%[~,rlabel,rct]=read_annotation(fullfile(subjPath,'/IMAGING/segmentation/label/rh.aparc.annot'));
-%lhtri=lhtri+1;
-%rhtri=rhtri+1+size(lhtri,1);
-names=[lct.struct_names(:)' rct.struct_names(:)'];
-identifiers=[lct.table(:,5); rct.table(:,5)];
-u_identifiers=unique(identifiers);
-colortable=[lct.table(:,1:3); rct.table(:,1:3)]/255;
-u_colortable=zeros(numel(u_identifiers),3);
-for i=1:length(u_identifiers)
-    u_colortable(i,:)=colortable(find(identifiers == u_identifiers(i),1),:);
-end
-
-Project.Annotation=[llabel; rlabel];
-Project.AnnotationLabel=struct('Name',uniqueStrCell(names)','Identifier',num2cell(u_identifiers),'PreferredColor',num2cell(u_colortable,2));
-
 cmap=zeros(numel(Project.AnnotationLabel)+2,3);
 annotation_remap=zeros(size(Project.Annotation));
 for i=1:length(cmap)-2
     cmap(i,:)=Project.AnnotationLabel(i).PreferredColor;
     annotation_remap(Project.Annotation == Project.AnnotationLabel(i).Identifier)=i;
-    
+
 end
 %making no annotation part grey
 annotation_remap(Project.Annotation == 0)=length(cmap)-1; %grey
