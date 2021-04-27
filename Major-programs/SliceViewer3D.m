@@ -259,8 +259,10 @@ classdef SliceViewer3D < uix.Grid
                     zfit = zfit(trim);
                     %line(xfit,yfit,zfit,'LineWidth',3,'Color','w')
                     cmap = colormap(obj.Slice3D);
-                    plotBallsOn3DImage(obj.Slice3D,[xfit',yfit',zfit'],length(cmap)-1,2); %length - 1 is yellow  
-                    plotBallsOn3DImage(obj.Slice3D,[xfit(end)',yfit(end)',zfit(end)'],length(cmap)-2,2); %length - 2 is black
+%                     plotBallsOn3DImage(obj.Slice3D,[xfit',yfit',zfit'],length(cmap)-1,2); %length - 1 is yellow  
+%                     plotBallsOn3DImage(obj.Slice3D,[xfit(end)',yfit(end)',zfit(end)'],length(cmap)-2,2); %length - 2 is black
+                    plotBallsOn3DImage(obj.Slice3D,[xfit',yfit',zfit'],length(cmap),2); %length is base color 
+                    plotBallsOn3DImage(obj.Slice3D,[xfit(end)',yfit(end)',zfit(end)'],length(cmap)-1,2); %length - 1 is current color
                     %auto 3D model Rotate
                     centerGrid = mean(currGrid,1);
                     [azimuth,elevation] = cart2sph(centerGrid(1),centerGrid(2),centerGrid(3));
@@ -293,8 +295,21 @@ classdef SliceViewer3D < uix.Grid
                         end
                         obj.plot3DModel();
                     end
+                    
                     cmap = colormap(obj.Slice3D);
-                    plotBallsOn3DImage(obj.Slice3D,currGrid,length(cmap)-3,2); %length(cmap)-3 is red
+                    if strcmp(obj.CursorUpdate{1},'r')
+                        cmap(end+1,:) = [0 1 0]; % Current Color
+                        cmap(end+1,:) = [1 0 0];
+                    elseif strcmp(obj.CursorUpdate{1},'g')
+                        cmap(end+1,:) = [1 0 0]; % Current Color
+                        cmap(end+1,:) = [0 1 0]; 
+                    elseif strcmp(obj.CursorUpdate{1},'y')
+                        cmap(end+1,:) = [0 1 0]; % Current Color
+                        cmap(end+1,:) = [1 1 0];
+                    end
+                    
+%                     plotBallsOn3DImage(obj.Slice3D,currGrid,length(cmap)-3,2); %length(cmap)-3 is red
+                    plotBallsOn3DImage(obj.Slice3D,currGrid,length(cmap),2); 
                     obj.ChOnPlot = 0;
                     
                     %auto 3D model Rotate
@@ -318,10 +333,36 @@ classdef SliceViewer3D < uix.Grid
                     delete(wb)
                 else
                     cmap = colormap(obj.Slice3D);
-                    plotBallsOn3DImage(obj.Slice3D,obj.ChOnPlot,length(cmap)-3,2); %length(cmap)-3 is red
+                    if strcmp(obj.CursorUpdate{1},'r')
+                        cmap(end+1,:) = [0 1 0]; % Current Color
+                        cmap(end+1,:) = [1 0 0];
+                    elseif strcmp(obj.CursorUpdate{1},'g')
+                        cmap(end+1,:) = [1 0 0]; % Current Color
+                        cmap(end+1,:) = [0 1 0];
+                    elseif strcmp(obj.CursorUpdate{1},'y')
+                        cmap(end+1,:) = [0 1 0]; % Current Color
+                        cmap(end+1,:) = [1 1 0];
+                    end
+                    
+%                     plotBallsOn3DImage(obj.Slice3D,obj.ChOnPlot,length(cmap)-3,2); %length(cmap)-3 is red
+                    plotBallsOn3DImage(obj.Slice3D,obj.ChOnPlot,length(cmap),2);
                 end
+                
                 cmap = colormap(obj.Slice3D);
-                plotBallsOn3DImage(obj.Slice3D,currCh,length(cmap),2); %length(cmap) is green
+                if strcmp(obj.CursorUpdate{1},'r')
+                    cmap(end+1,:) = [0 1 0]; % Current Color
+                    cmap(end+1,:) = [1 0 0]; 
+                elseif strcmp(obj.CursorUpdate{1},'g')
+                    cmap(end+1,:) = [1 0 0]; % Current Color
+                    cmap(end+1,:) = [0 1 0]; 
+                elseif strcmp(obj.CursorUpdate{1},'y')
+                    cmap(end+1,:) = [0 1 0]; % Current Color
+                    cmap(end+1,:) = [1 1 0];
+                end
+                colormap(obj.Slice3D,cmap);
+
+%                 plotBallsOn3DImage(obj.Slice3D,currCh,length(cmap),2); %length(cmap) is green
+                plotBallsOn3DImage(obj.Slice3D,currCh,length(cmap)-1,2); 
             end
             obj.GridOnPlot = currGrid;
             obj.ChOnPlot = currCh;
@@ -335,10 +376,23 @@ classdef SliceViewer3D < uix.Grid
                 %set(obj.Slice3D,'Parent',obj);
                 %zoom(2)
                 % a very strange solution to color
+%                 cmap = colormap(obj.Slice3D);
+%                 cmap(end+1,:) = [0,0,0];
+%                 cmap(end+1,:) = [1,1,0];
+%                 cmap(end+1,:) = [0,1,0];
+%                 colormap(obj.Slice3D,cmap);
+                
                 cmap = colormap(obj.Slice3D);
-                cmap(end+1,:) = [0,0,0];
-                cmap(end+1,:) = [1,1,0];
-                cmap(end+1,:) = [0,1,0];
+                if strcmp(obj.CursorUpdate{1},'r')
+                    cmap(end+1,:) = [0 1 0]; % Current Color
+                    cmap(end+1,:) = [1 0 0]; 
+                elseif strcmp(obj.CursorUpdate{1},'g')
+                    cmap(end+1,:) = [1 0 0]; % Current Color
+                    cmap(end+1,:) = [0 1 0]; 
+                elseif strcmp(obj.CursorUpdate{1},'y')
+                    cmap(end+1,:) = [0 1 0]; % Current Color
+                    cmap(end+1,:) = [1 1 0];
+                end
                 colormap(obj.Slice3D,cmap);
                 plotBallsOn3DImage(obj.Slice3D,[0,0,0],length(cmap),0.1);
             end

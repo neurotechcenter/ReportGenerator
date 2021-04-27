@@ -90,8 +90,13 @@ classdef ReportPreviewer < handle
                                         'Position',[10,5,100,20]);
                     addlistener(buttonRed,'Value','PostSet',@obj.redPressed);
                     buttonGreen = uicontrol('Parent',bg1,'Style','radiobutton','String','Green',...
-                                        'Position',[110,5,100,20]);
+                                        'Position',[70,5,100,20]);
                     addlistener(buttonGreen,'Value','PostSet',@obj.greenPressed);
+                    % James
+                    buttonYellow = uicontrol('Parent',bg1,'Style','radiobutton','String','Yellow',...
+                                        'Position',[130,5,100,20]);
+                    addlistener(buttonYellow,'Value','PostSet',@obj.yellowPressed);
+                    %
                 bg2 = uibuttongroup('Parent',cursorGrid);
                     buttonCross = uicontrol('Parent',bg2,'Style','radiobutton','String','Cross',...
                                         'Position',[10,5,100,20]);
@@ -153,7 +158,7 @@ classdef ReportPreviewer < handle
                 addlistener(obj.maxSlider,'Value','PostSet',@obj.sliderChanged);
             %End Contrast Sliders
             activateButton = uicontrol('Parent',buttonLayer,'Style','PushButton',...
-                'String','Procede and Generate the Subject Report',...
+                'String','Proceed and Generate the Subject Report',...
                 'BackgroundColor','g');
                 addlistener(activateButton,'Value','PostSet',@obj.generateReport);
             set(buttonLayer,'Heights',[-1,45,45,30]);
@@ -397,6 +402,9 @@ classdef ReportPreviewer < handle
         end
         function greenPressed(obj,~,~)
             obj.sv3d.CursorUpdate(1) = {'g'};
+        end
+        function yellowPressed(obj,~,~)
+            obj.sv3d.CursorUpdate(1) = {'y'};
         end
         function crossPressed(obj,~,~)
             obj.sv3d.CursorUpdate(2) = {'cross'};
