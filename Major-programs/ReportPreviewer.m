@@ -465,7 +465,7 @@ classdef ReportPreviewer < handle
             subtitleText = Paragraph(sprintf('Generated at %s', datestr(now,'HH:MM')));% *****
             replace(presentationTitleSlide,'Subtitle',subtitleText);
             
-            f=figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
+            f=figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','on');
 
             f.InvertHardcopy = 'off';
             
