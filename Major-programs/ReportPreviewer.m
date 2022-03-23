@@ -451,6 +451,7 @@ classdef ReportPreviewer < handle
             end
             obj.isRunning = true;
            %% Creating Report from template
+            %cd(fileparts(mfilename));
             import mlreportgen.ppt.*;
             
             
@@ -465,7 +466,7 @@ classdef ReportPreviewer < handle
             wb = waitbar(0,'Loading from template...');
             slidesFile =fullfile(obj.subjPath,[obj.reportName{1},'.pptx']);% *****
             obj.OutPath=slidesFile;
-            slides = Presentation(slidesFile,fullfile(fileparts(mfilename),'SubjectReport-template'));
+            slides = Presentation(slidesFile,fullfile(fileparts(mfilename('fullpath')),'SubjectReport-template'));
             
             % Title page and related page of the summary pdf
             try
