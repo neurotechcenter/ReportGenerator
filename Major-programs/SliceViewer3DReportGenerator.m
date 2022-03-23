@@ -1,4 +1,4 @@
-classdef SliceViewer3D < uix.Grid
+classdef SliceViewer3DReportGenerator < uix.Grid
     %SLICEVIEWER3D Summary of this class goes here
     %Parent of SliceViewer.
     %This function creates three SliceViewer object in which each
@@ -37,16 +37,16 @@ classdef SliceViewer3D < uix.Grid
     end
     
     methods
-        function obj = SliceViewer3D(varargin)
+        function obj = SliceViewer3DReportGenerator(varargin)
             %SLICEVIEWER3D Construct an instance of this class
             %   Detailed explanation goes here
-            obj.SliceViewX=SliceViewer('Parent',obj,'SliderOrientation','north',...
+            obj.SliceViewX=SliceViewerReportGenerator('Parent',obj,'SliderOrientation','north',...
                 'CursorChangedFcn',@obj.setCursor,'SliceChangedFcn',@obj.sliceChanged,'ViewAxis',[2 3 1],'BackgroundColor','k'); %RAS system [left to right; posterior to anterior, inferior to sup] 
-             obj.SliceViewZ=SliceViewer('Parent',obj,'SliderOrientation','north',...
+             obj.SliceViewZ=SliceViewerReportGenerator('Parent',obj,'SliderOrientation','north',...
                  'CursorChangedFcn',@obj.setCursor,'SliceChangedFcn',@obj.sliceChanged,'ViewAxis',[1 2 3],'BackgroundColor','k');
-             obj.SliceViewY=SliceViewer('Parent',obj,'SliderOrientation','north',...
+             obj.SliceViewY=SliceViewerReportGenerator('Parent',obj,'SliderOrientation','north',...
                  'CursorChangedFcn',@obj.setCursor,'SliceChangedFcn',@obj.sliceChanged,'ViewAxis',[1 3 2],'BackgroundColor','k');
-             obj.Slice3D = gobjects;
+             obj.Slice3D = axes(obj,'Color','k');
                 %set(obj.Slice3D,'visible','off')
             addlistener(obj,'Image','PostSet',@obj.imageChanged);
             addlistener(obj,'Cursor','PostSet',@obj.setCursorOutside);
@@ -177,8 +177,8 @@ classdef SliceViewer3D < uix.Grid
         function update3DModel(obj,~,~)
             %% part 1 if button is off, delete model and clear variable
             if(isequal(obj.ModelSettings{1},'off'))
-                if ishandle(obj.Slice3D)
-                    delete(obj.Slice3D)
+                if ~isempty(get(obj.Slice3D, 'Children'))
+                    cla(obj.Slice3D);
                 end
                 obj.GridOnPlot = [];
                 obj.ChOnPlot = [];
@@ -186,7 +186,7 @@ classdef SliceViewer3D < uix.Grid
             end
             %% part 2 button on case 1
             % model doesn't exist, create inital model
-            if(~ishandle(obj.Slice3D))
+            if(isempty(get(obj.Slice3D, 'Children')))
                 wb = waitbar(0,'Loading the 3D Brain Model...');
                 obj.plot3DModel(); % obj.Slice3D is created
                 
@@ -234,8 +234,8 @@ classdef SliceViewer3D < uix.Grid
                 if(~isequal(obj.GridOnPlot,currGrid)||isempty(obj.GridOnPlot))
                     wb = waitbar(0,'Updating the 3D Brain Model...');
                     if(~isempty(obj.GridOnPlot))
-                        if ishandle(obj.Slice3D)
-                            delete(obj.Slice3D)
+                        if ~isempty(get(obj.Slice3D, 'Children'))
+                            cla(obj.Slice3D);
                         end
                         obj.plot3DModel();
                     end 
@@ -290,8 +290,8 @@ classdef SliceViewer3D < uix.Grid
                 if(~isequal(obj.GridOnPlot,currGrid)||isempty(obj.GridOnPlot))
                     wb = waitbar(0,'Updating the 3D Brain Model...');
                     if(~isempty(obj.GridOnPlot))
-                        if ishandle(obj.Slice3D)
-                            delete(obj.Slice3D)
+                        if ~isempty(get(obj.Slice3D, 'Children'))
+                            cla(obj.Slice3D);
                         end
                         obj.plot3DModel();
                     end
@@ -371,7 +371,7 @@ classdef SliceViewer3D < uix.Grid
         end
         
         function plot3DModel(obj,~,~)
-            [obj.Slice3D,obj.Slice3DErrorMessage] = brainModeler(obj.subjPath);
+            [obj.Slice3D,obj.Slice3DErrorMessage] = brainModeler(obj.subjPath,obj.Slice3D);
             if(isempty(obj.Slice3DErrorMessage))
                 zoom(2)
                 drawnow

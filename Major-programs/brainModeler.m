@@ -1,4 +1,4 @@
-function [axModel,errormessage] = brainModeler(subjPath)
+function [axModel,errormessage] = brainModeler(subjPath,axIn)
 addpath(genpath('./freesurfer-toolbox'));
 pathToLhPial=fullfile(subjPath,'/IMAGING/segmentation/surf/lh.pial');
 pathToRhPial=fullfile(subjPath,'/IMAGING/segmentation/surf/rh.pial');
@@ -98,8 +98,11 @@ annotation_remap(Project.Annotation == 0)=length(cmap)-1; %grey
 cmap(end-1,:)=[75 75 75]/255;
 
 cmap(end,:)=[1 0 0]'; %electrode color
-
-axModel = axes('Color','k');
+if(nargin < 2)
+    axModel = axes('Color','k');
+else
+    axModel=axIn;
+end
 axis(axModel,'fill')
 settings={'CDataMapping', 'direct','linestyle', 'none','FaceLighting','gouraud','BackFaceLighting','unlit','AmbientStrength',1};
 

@@ -1,4 +1,4 @@
-classdef SliceViewer < uix.Grid
+classdef SliceViewerReportGenerator < uix.Grid
     %SLICEVIEWERCOMPONENT Summary of this class goes here
     %   Detailed explanation goes here
     properties (Access = public,SetObservable)
@@ -32,7 +32,7 @@ classdef SliceViewer < uix.Grid
     
     methods
         
-        function obj=SliceViewer(varargin)
+        function obj=SliceViewerReportGenerator(varargin)
             obj.slider=uicontrol('Parent', obj,'Style', 'slider','Units','normalized','Min',1,'Max',2,'Value',1);
             addlistener(obj.slider, 'Value', 'PreSet',@obj.sliderChanged);
             obj.imageView=axes('Parent',obj,'Units','normalized','Color','k');

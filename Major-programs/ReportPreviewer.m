@@ -10,9 +10,14 @@ classdef ReportPreviewer < handle
         
     end
     
+    properties (Access = public)
+        gui
+        OutPath
+    end
+    
     properties (Access = protected)
         currPath
-        gui
+        
         previewer
         list
         sv3d
@@ -49,13 +54,19 @@ classdef ReportPreviewer < handle
     
     
     methods
-        function obj = ReportPreviewer(varargin)
+        function obj = ReportPreviewer(filePath)
             %% Create interface
-            fileStats = obj.loadSubjectPath();
+            if(nargin < 1)
+                fileStats = obj.loadSubjectPath();
+            else
+                fileStats = obj.loadSubjectPath([],[],filePath);
+            end
+            
             if(fileStats == 0)
                 delete(obj)
                 return
             end
+            obj.OutPath=[];
             obj.currPath = pwd;
             obj.gui = figure('units','normalized','outerposition',[1/6 1/3 2/3 2/3],...
                 'Name',['Report Previewer: ',obj.subj],'NumberTitle', 'off', ...
@@ -168,7 +179,7 @@ classdef ReportPreviewer < handle
             waitbar(0.75,wb,'Creating viewer');
           %% Create Imaging GUI
             svPanel = uix.BoxPanel('Parent',obj.previewer,'Title','Electrode Location View: ');
-            obj.sv3d = SliceViewer3D('Parent',svPanel,'SliderVisible','off','BackgroundColor','k');
+            obj.sv3d = SliceViewer3DReportGenerator('Parent',svPanel,'SliderVisible','off','BackgroundColor','k');
             addlistener(obj,'ImagingFile','PostSet',@obj.imagingFileChanged);
             addlistener(obj,'ImagingFile','PostSet',@obj.eTypeChanged);
           %% Finalize the ReportPreviewer GUI
@@ -190,13 +201,18 @@ classdef ReportPreviewer < handle
     
     methods (Access = private)
         
-        function stats = loadSubjectPath(obj,~,~)
+        function stats = loadSubjectPath(obj,~,~,inPath)
             if(obj.isRunning)
                 warndlg('Wait for the generation to complete','Warning');
                 stats = 0;
                 return
             end
-            isPath=uigetdir();
+            if(nargin < 4)
+                isPath=uigetdir();
+            else
+                isPath=inPath;
+            end
+            
             if (isPath == 0)
                 errordlg('No subject folder was selected','File Error');
                 stats = 0;
@@ -437,7 +453,7 @@ classdef ReportPreviewer < handle
            %% Creating Report from template
             import mlreportgen.ppt.*;
             
-            cd(obj.currPath);
+            
             opts.Interpreter = 'tex';
             obj.reportName = inputdlg({['\fontsize{12}' 'Please enter your report name (avoid repeating names with existed files)']},...
                             'Report Naming',[1,50],{[obj.subj '-summary']},opts);
@@ -448,7 +464,8 @@ classdef ReportPreviewer < handle
             end
             wb = waitbar(0,'Loading from template...');
             slidesFile =fullfile(obj.subjPath,[obj.reportName{1},'.pptx']);% *****
-            slides = Presentation(slidesFile,'./Major-programs/SubjectReport-template');
+            obj.OutPath=slidesFile;
+            slides = Presentation(slidesFile,fullfile(fileparts(mfilename),'SubjectReport-template'));
             
             % Title page and related page of the summary pdf
             try
@@ -470,7 +487,7 @@ classdef ReportPreviewer < handle
             f.InvertHardcopy = 'off';
             
             % Imaging portion
-            Slice=SliceViewer3D('Parent',f,'SliderVisible','off','BackgroundColor','k');
+            Slice=SliceViewer3DReportGenerator('Parent',f,'SliderVisible','off','BackgroundColor','k');
             Slice.Image = obj.ImagingFile;
             Slice.ContrastUpdate = obj.ContrastInfo;
             Slice.CursorUpdate = obj.sv3d.CursorUpdate;
@@ -516,14 +533,16 @@ classdef ReportPreviewer < handle
             Slice.ModelSettings = [obj.sv3d.ModelSettings(1:2),{0},{0}];
             export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw','Origin'),'-png');
             %% Adding 3d model info into the beginning of the report
-            [axModel,axErrMsg] = brainModeler(obj.subjPath);
+            v = figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
+            axModel=axes(v,'Color','k');
+            [axModel,axErrMsg] = brainModeler(obj.subjPath,axModel);           
             if(isequal(Slice.ModelSettings{1},'on')&&isempty(axErrMsg))
                 waitbar(0,wb,'Creating 3D model face view...')
-                v = figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
+                
                 v.InvertHardcopy = 'off';
+
                 %zoom(0.9)
                 drawnow
-                set(axModel,'Parent',v);
                 cmap = colormap(axModel);
                 stIndex = size(cmap,1);
                 addcmap = colormap(hsv(size(obj.StripInfo,2)));
@@ -606,11 +625,8 @@ classdef ReportPreviewer < handle
                     contents = find(pictureSlide,'Content');
                     replace(contents(1),plot2);
                 end
-                delete(v)
-            else
-                delete(axModel)
             end
-    
+            delete(v);
           %% Adding Slice info into the report
             waitbar(0,wb,'Creating electrode slices...');
             for sIndex = 1:size(obj.StripInfo,2)
