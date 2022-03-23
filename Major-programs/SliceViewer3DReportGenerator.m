@@ -373,7 +373,7 @@ classdef SliceViewer3DReportGenerator < uix.Grid
         function plot3DModel(obj,~,~)
             [obj.Slice3D,obj.Slice3DErrorMessage] = brainModeler(obj.subjPath,obj.Slice3D);
             if(isempty(obj.Slice3DErrorMessage))
-                zoom(2)
+                zoom(obj.Slice3D,2)
                 drawnow
                 %set(obj.Slice3D,'Parent',obj);
                 %zoom(2)
