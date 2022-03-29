@@ -49,6 +49,7 @@ for fileIndex = 1:length(fileNames)
     elecCell(1,fileIndex) = {elecMatrix};
     elecCell(2,fileIndex) = {justName};
     end
+    fclose(electrodesFileID);
 end
 remain = ~cellfun('isempty',elecCell);
 top = elecCell(1,:);
