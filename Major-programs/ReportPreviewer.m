@@ -590,7 +590,7 @@ classdef ReportPreviewer < handle
                 
                 cEnd = length(cmap);
                 correctedStart = cEnd -(cEnd-stIndex)*49/50;
-                cb = colorbar(axModel,'Limits',[correctedStart cEnd],'Color',[1,1,1]);
+                cb = colorbar(axModel,'Limits',[correctedStart cEnd],'Color',[1,1,1],'TickLabelInterpreter','none'); 
                 cb.Ticks = [correctedStart+49/100:49/50:cEnd-49/100];
                 cb.TickLabels = obj.StripInfo(2,:)';
                 %cb.FontWeight = 'bold';
@@ -644,6 +644,7 @@ classdef ReportPreviewer < handle
                     waitbar(count/size(obj.electrodes,1),wb,...
                     sprintf(['Strip %i/',int2str(size(obj.StripInfo,2)),': ',...
                                     cStripName,' (Ch. %i)'],sIndex,eIndex));
+                    wb.Children(2).Title.Interpreter = 'none';
                     catch e
                         delete(wb);
                         obj.isRunning = false;
