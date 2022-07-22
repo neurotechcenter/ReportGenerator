@@ -78,7 +78,7 @@ classdef ReportPreviewer < handle
             obj.previewer = uix.HBoxFlex('Parent',obj.gui,'Spacing',10,'Padding',15);
             wb = waitbar(0,'Creating interfaces');
           %% Create tab GUI
-            waitbar(0.25,wb,'Creating tabs');
+            waitbar(0.25,wb,'Name','Creating tabs');
             ctrlPanel = uix.BoxPanel('Parent',obj.previewer,'Title','Control Panel: ','Padding',10);
             buttonLayer = uix.VBox('Parent',ctrlPanel,'Spacing',5);
             tabsPanel = uix.TabPanel('Parent',buttonLayer);
@@ -157,7 +157,7 @@ classdef ReportPreviewer < handle
             set(eTypeVBox,'Heights',[-1,25]);
             %End electrode type tab
             
-            waitbar(0.5,wb,'Creating panels');
+            waitbar(0.5,wb,'Name','Creating panels');
             %Create Contrast Sliders
             minPanel = uix.Panel('Parent',buttonLayer,'Title','Imaging Minimum','Padding',5);
                 obj.minSlider = uicontrol('Parent',minPanel,'Style','slider',...
@@ -176,7 +176,7 @@ classdef ReportPreviewer < handle
             tabsPanel.TabTitles = {'Channel List', 'Imaging Options', 'Grid Options'};
             tabsPanel.TabWidth = 85;
             %End tab GUI
-            waitbar(0.75,wb,'Creating viewer');
+            waitbar(0.75,wb,'Name','Creating viewer');
           %% Create Imaging GUI
             svPanel = uix.BoxPanel('Parent',obj.previewer,'Title','Electrode Location View: ');
             obj.sv3d = SliceViewer3DReportGenerator('Parent',svPanel,'SliderVisible','off','BackgroundColor','k');
@@ -194,7 +194,7 @@ classdef ReportPreviewer < handle
                 obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0}; 
                 obj.onListSelection();
             end
-            waitbar(1,wb,'Done');
+            waitbar(1,wb,'Name','Done');
             delete(wb)
         end
     end
@@ -472,7 +472,7 @@ classdef ReportPreviewer < handle
             try
                 presentationTitleSlide = add(slides,'Title Slide');
             catch e
-                delete(wb)
+                delete(wb);
                 errordlg(sprintf(['Check if [ %s ] is open, \n',...
                     'if so, close it and try again.'],[obj.reportName{1},'.pptx']));
                 obj.isRunning = false;
@@ -500,7 +500,7 @@ classdef ReportPreviewer < handle
             Slice.GridTypeOpts = obj.sv3d.GridTypeOpts;
             Slice.rotate3D = 'off';
             
-            waitbar(1,wb,'Saving settings...');
+            waitbar(1,wb,'Name','Saving settings...');
             delete(wb)
             
             %% Creating output folder and initializing Slice
@@ -511,7 +511,7 @@ classdef ReportPreviewer < handle
                     if status==1
                         break
                     end
-                    pause(.1*trail)
+                    pause(.1*trail);
                 end
                 if status==0
                     delete(wb)
@@ -538,7 +538,7 @@ classdef ReportPreviewer < handle
             axModel=axes(v,'Color','k');
             [axModel,axErrMsg] = brainModeler(obj.subjPath,axModel);           
             if(isequal(Slice.ModelSettings{1},'on')&&isempty(axErrMsg))
-                waitbar(0,wb,'Creating 3D model face view...')
+                waitbar(0,wb,'Name','Creating 3D model face view...')
                 
                 v.InvertHardcopy = 'off';
 
@@ -605,7 +605,7 @@ classdef ReportPreviewer < handle
                 export_fig(v,fullfile(obj.subjPath,'ReportFigures_raw','Overview'),'-png','-nocrop');
                 faceName = {'Posterior','Right','Anterior','Left','Superior','Inferior'};
                 for faceIndex = 1:6
-                    waitbar(faceIndex/6,wb,'Creating 3D model face view...');
+                    waitbar(faceIndex/6,wb,'Name','Creating 3D model face view...');
                     view(axModel,(faceIndex-1)*90,0)
                     if(faceIndex>4)
                         view(axModel,0,(2*(faceIndex-4)-1)*90)
@@ -629,7 +629,7 @@ classdef ReportPreviewer < handle
             end
             delete(v);
           %% Adding Slice info into the report
-            waitbar(0,wb,'Creating electrode slices...');
+            waitbar(0,wb,'Name','Creating electrode slices...');
             for sIndex = 1:size(obj.StripInfo,2)
                 cStrip = obj.StripInfo{1,sIndex};
                 cStripName = obj.StripInfo{2,sIndex};
@@ -641,14 +641,14 @@ classdef ReportPreviewer < handle
                     end
                     
                     try
-                    waitbar(count/size(obj.electrodes,1),wb,...
+                    waitbar(count/size(obj.electrodes,1),wb,'Name',...
                     sprintf(['Strip %i/',int2str(size(obj.StripInfo,2)),': ',...
                                     cStripName,' (Ch. %i)'],sIndex,eIndex));
                     wb.Children(2).Title.Interpreter = 'none';
                     catch e
-                        delete(wb);
-                        obj.isRunning = false;
-                        return
+                        %delete(wb);
+                        %obj.isRunning = false;
+                        %return
                     end
                 
                     electrodeName = [cStripName,' - Ch ',int2str(eIndex)];
@@ -724,7 +724,7 @@ classdef ReportPreviewer < handle
                     return
                 end
             end
-            waitbar(1,wb,'Opening PDF...');
+            waitbar(1,wb,'Name','Opening PDF...');
             rptview(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'pdf')
             delete(wb);
         end
