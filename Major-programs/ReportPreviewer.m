@@ -720,7 +720,7 @@ classdef ReportPreviewer < handle
                 if(exist(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'file')~=2)
                     delete(wb);
                     errordlg(sprintf(['Unable to convert [ %s ] to PDF, \n',...
-                        'This feature requires a valid Microsoft PowerPoint to be instailed.'],[obj.reportName{1},'.pptx']));
+                        'Convert to PDF is only available on PC and requires a valid Microsoft PowerPoint to be installed.'],[obj.reportName{1},'.pptx']));
                     return
                 end
             end

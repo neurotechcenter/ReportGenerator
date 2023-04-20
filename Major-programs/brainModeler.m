@@ -125,6 +125,16 @@ set(axModel,'AmbientLightColor',[1 1 1])
 %zoom(axModel,'on');
 %customRotate3d(axModel,'on');
 %rotate3d(axModel);
+
+%%%%%%%%%%% James added to answer questions for Harsh... not working yet
+% alpha(axModel,0.5);
+% for i = 1:size(Project.AnnotationLabel,1)
+%     labels{i} = getfield(Project.AnnotationLabel,{i},'Name');
+% end
+% cbar = colorbar(axModel,'Ticks',(1:size(labels,2))+0.5,'TickLabels',labels,'FontSize',12,'Color','w');
+% cbar.TickLabelInterpreter = 'none';
+%%%%%%%%%%%
+
 set(axModel,'xtick',[]);
 set(axModel,'ytick',[]);
 axis(axModel,'equal');
