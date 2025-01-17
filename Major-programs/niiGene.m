@@ -7,6 +7,7 @@ function nii = niiGene(folder)
 nifti = dir(fullfile(folder,'/IMAGING/NIfTI/MRI/*.img')); %*****
 
 % remove . files from list
+remidx = [];
 iter = 1;
 for i = 1:size(nifti,1)
     if contains(nifti(i).name,'._')
