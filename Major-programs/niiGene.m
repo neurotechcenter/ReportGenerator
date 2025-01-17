@@ -4,7 +4,18 @@
 %The output nii file will then be fed into the Sliceviewer3D. 
 function nii = niiGene(folder)
 %% Transforming nifti
-nifti =dir(fullfile(folder,'/IMAGING/NIfTI/MRI/*.img')); %*****
+nifti = dir(fullfile(folder,'/IMAGING/NIfTI/MRI/*.img')); %*****
+
+% remove . files from list
+iter = 1;
+for i = 1:size(nifti,1)
+    if contains(nifti(i).name,'._')
+        remidx(iter) = i;
+        iter = iter + 1;
+    end
+end
+nifti(remidx) = [];
+clear iter i remidx
 
 %Error check: is the electrode file in the right directory
 if (isempty(nifti))
