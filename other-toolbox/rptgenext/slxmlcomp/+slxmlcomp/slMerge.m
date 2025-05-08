@@ -17,7 +17,7 @@
 
 % Copyright 2015-2017 The MathWorks, Inc.
 function slMerge(varargin)
-    import comparisons.internal.util.APIUtils;
+    % import comparisons.internal.util.APIUtils;
     
     narginchk(4, 4);
     

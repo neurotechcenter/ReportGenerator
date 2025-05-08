@@ -72,5 +72,5 @@ new_idx = insert_vals(new_val,vertx_list(:,3));
 
 subplot(2,1,nfig+2);
 p_eccen_handle=patch('Vertices',full_vertx,'Faces',face_list(:,1:4)+1,'FaceVertexCData',new_idx,'FaceColor','interp','EdgeColor','none');
-title(['Smoothed: 'strpwd((length(strpwd)-25):length(strpwd)) ' ' fname_real]);
+title(['Smoothed: ',strpwd((length(strpwd)-25):length(strpwd)) ' ' fname_real]);
 
