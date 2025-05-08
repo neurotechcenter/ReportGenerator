@@ -16,10 +16,10 @@ classdef SliceViewer3DReportGenerator < uix.Grid
         Cursor =[]
         SliderVisible= 'on'
         ContrastUpdate = []
-        CursorUpdate = {'r','cross'}
+        CursorUpdate = {'r','cross',20}
         
         subjPath
-        ModelSettings = {'off',{},0,0}
+        ModelSettings = {'off',{},0,0,1}
         GridOnPlot = []
         ChOnPlot = []
         Slice3DErrorMessage = []
@@ -397,6 +397,7 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                 end
                 colormap(obj.Slice3D,cmap);
                 plotBallsOn3DImage(obj.Slice3D,[0,0,0],length(cmap),0.1);
+                alpha(obj.Slice3D,obj.ModelSettings{5})
             end
         end
        

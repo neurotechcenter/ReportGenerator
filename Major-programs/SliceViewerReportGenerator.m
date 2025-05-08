@@ -16,7 +16,7 @@ classdef SliceViewerReportGenerator < uix.Grid
         ViewAxis = [1 2 3];
         SliderVisible= 'on'
         ClimUpdate = [];
-        Marker = {'r','cross'}
+        Marker = {'r','cross',20}
     end
     properties (Access = protected)
         slider
@@ -194,10 +194,12 @@ classdef SliceViewerReportGenerator < uix.Grid
                 if(obj.CursorPosition(obj.ViewAxis(3)) == obj.Slice)
                     hold(obj.imageView,'on')
                     if(isequal(obj.Marker{2},'cross')) 
-                        obj.currCursor=scatter(obj.imageView,obj.CursorPosition(obj.ViewAxis(1)),obj.CursorPosition(obj.ViewAxis(2)),200,...
+                        cursorSize = 10*obj.Marker{3};
+                        obj.currCursor=scatter(obj.imageView,obj.CursorPosition(obj.ViewAxis(1)),obj.CursorPosition(obj.ViewAxis(2)),cursorSize,...
                             ['+',obj.Marker{1}],'LineWidth',1.5);
                     else
-                        obj.currCursor=scatter(obj.imageView,obj.CursorPosition(obj.ViewAxis(1)),obj.CursorPosition(obj.ViewAxis(2)),[],...
+                        cursorSize = obj.Marker{3};
+                        obj.currCursor=scatter(obj.imageView,obj.CursorPosition(obj.ViewAxis(1)),obj.CursorPosition(obj.ViewAxis(2)),cursorSize,...
                             obj.Marker{1},'filled');
                     end
                     obj.posText=text(obj.imageView,0,...

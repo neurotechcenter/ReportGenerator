@@ -43,6 +43,9 @@ classdef ReportPreviewer < handle
         chIndex
         buttonModelOn
         buttonModelOff
+        TransparencyOn
+        TransparencyOff
+        % transSlider
         
         %variables for electrode type options
         eTypeScroll
@@ -90,48 +93,70 @@ classdef ReportPreviewer < handle
             optionBoxes = uix.VBox('Parent',tabsPanel,'Spacing',5);
             displayPanel = uix.Panel('Parent',optionBoxes,'Title','Display Options','Padding',5);
             displayGrid = uix.Grid('Parent',displayPanel,'Padding',5); %allow multiple elements under displayPanel
-                %Create Cursor option grid (2X3)
-                cursorGrid = uix.Grid('Parent',displayGrid,'Spacing',5,'Padding',5);
+            %Create Cursor option grid (2X3)
+            cursorGrid = uix.Grid('Parent',displayGrid,'Spacing',5,'Padding',5);
+            
+            uicontrol('Parent',cursorGrid,'Style','text','String','Cursor Color');
+            uicontrol('Parent',cursorGrid,'Style','text','String','Cursor Style');
+            uicontrol('Parent',cursorGrid,'Style','text','String','Cursor Size');
+            uicontrol('Parent',cursorGrid,'Style','text','String','Show 3D Model');
+            uicontrol('Parent',cursorGrid,'Style','text','String','3D Model Transparency');
+
+            % Cursor Color
+            bg1 = uibuttongroup('Parent',cursorGrid);
+                buttonRed = uicontrol('Parent',bg1,'Style','radiobutton','String','Red',...
+                                    'Position',[10,5,100,20]);
+                addlistener(buttonRed,'Value','PostSet',@obj.redPressed);
+                buttonGreen = uicontrol('Parent',bg1,'Style','radiobutton','String','Green',...
+                                    'Position',[70,5,100,20]);
+                addlistener(buttonGreen,'Value','PostSet',@obj.greenPressed);
+                buttonYellow = uicontrol('Parent',bg1,'Style','radiobutton','String','Yellow',...
+                                    'Position',[130,5,100,20]);
+                addlistener(buttonYellow,'Value','PostSet',@obj.yellowPressed);
+
+            % Cursor Size
+            bg2 = uibuttongroup('Parent',cursorGrid);
+                cursorSmall = uicontrol('Parent',bg2,'Style','radiobutton','String','Small',...
+                                    'Position',[10,5,100,20]);
+                addlistener(cursorSmall,'Value','PostSet',@obj.smallPressed);
+                cursorMedium = uicontrol('Parent',bg2,'Style','radiobutton','String','Medium',...
+                                    'Position',[70,5,100,20]);
+                addlistener(cursorMedium,'Value','PostSet',@obj.mediumPressed);
+                cursorLarge = uicontrol('Parent',bg2,'Style','radiobutton','String','Large',...
+                                    'Position',[130,5,100,20]);
+                addlistener(cursorLarge,'Value','PostSet',@obj.largePressed);
+
+            % Cursor Style
+            bg3 = uibuttongroup('Parent',cursorGrid);
+                buttonCross = uicontrol('Parent',bg3,'Style','radiobutton','String','Cross',...
+                                    'Position',[10,5,100,20]);
+                addlistener(buttonCross,'Value','PostSet',@obj.crossPressed);
+                buttonDot = uicontrol('Parent',bg3,'Style','radiobutton','String','Dot',...
+                                    'Position',[110,5,100,20]);
+                addlistener(buttonDot,'Value','PostSet',@obj.dotPressed);
+            
+            % Plot 3D model button
+            bg4 = uibuttongroup('Parent',cursorGrid);
+                obj.buttonModelOn = uicontrol('Parent',bg4,'Style','radiobutton','String','On',...
+                                    'Position',[10,5,100,20]);
+                addlistener(obj.buttonModelOn,'Value','PostSet',@obj.modelOnPressed);
+                obj.buttonModelOff = uicontrol('Parent',bg4,'Style','radiobutton','String','Off',...
+                                    'Position',[110,5,100,20]);
+                set(bg4,'SelectedObject',obj.buttonModelOff); 
+
+            % Transparency
+            bg5 = uibuttongroup('Parent',cursorGrid);
+                obj.TransparencyOn = uicontrol('Parent',bg5,'Style','radiobutton','String','On',...
+                                    'Position',[10,5,100,20]);
+                addlistener(obj.TransparencyOn,'Value','PostSet',@obj.TransparencyOnPressed);
+                obj.TransparencyOff = uicontrol('Parent',bg5,'Style','radiobutton','String','Off',...
+                                    'Position',[110,5,100,20]);
+                set(bg5,'SelectedObject',obj.TransparencyOff); 
+
+
+
+            set(cursorGrid,'Widths',[-1,-2],'Heights',[30,30,30,30,30]);
                 
-                uicontrol('Parent',cursorGrid,'Style','text','String','Cursor Color');
-                uicontrol('Parent',cursorGrid,'Style','text','String','Cursor Style');
-                uicontrol('Parent',cursorGrid,'Style','text','String','3D Model');
-                bg1 = uibuttongroup('Parent',cursorGrid);
-                    buttonRed = uicontrol('Parent',bg1,'Style','radiobutton','String','Red',...
-                                        'Position',[10,5,100,20]);
-                    addlistener(buttonRed,'Value','PostSet',@obj.redPressed);
-                    buttonGreen = uicontrol('Parent',bg1,'Style','radiobutton','String','Green',...
-                                        'Position',[70,5,100,20]);
-                    addlistener(buttonGreen,'Value','PostSet',@obj.greenPressed);
-                    % James
-                    buttonYellow = uicontrol('Parent',bg1,'Style','radiobutton','String','Yellow',...
-                                        'Position',[130,5,100,20]);
-                    addlistener(buttonYellow,'Value','PostSet',@obj.yellowPressed);
-                    %
-                bg2 = uibuttongroup('Parent',cursorGrid);
-                    buttonCross = uicontrol('Parent',bg2,'Style','radiobutton','String','Cross',...
-                                        'Position',[10,5,100,20]);
-                    addlistener(buttonCross,'Value','PostSet',@obj.crossPressed);
-                    buttonDot = uicontrol('Parent',bg2,'Style','radiobutton','String','Dot',...
-                                        'Position',[110,5,100,20]);
-                    addlistener(buttonDot,'Value','PostSet',@obj.dotPressed);
-                %Plot 3D model button
-                bg3 = uibuttongroup('Parent',cursorGrid);
-                    obj.buttonModelOn = uicontrol('Parent',bg3,'Style','radiobutton','String','On',...
-                                        'Position',[10,5,100,20]);
-                    addlistener(obj.buttonModelOn,'Value','PostSet',@obj.modelOnPressed);
-                    obj.buttonModelOff = uicontrol('Parent',bg3,'Style','radiobutton','String','Off',...
-                                        'Position',[110,5,100,20]);
-                    set(bg3,'SelectedObject',obj.buttonModelOff); 
-                set(cursorGrid,'Widths',[-1,-2],'Heights',[30,30,30]);
-                %{
-                %Create transparency control slider
-                transPanel = uix.Panel('Parent',displayGrid,'Title','Transparency');
-                obj.tranSlider = uicontrol('Parent',transPanel,'Style','slider','Enable','off',...
-                                            'Units','normalized','Min',0,'Max',1,'Value',1);
-                addlistener(obj.tranSlider,'Value','PostSet',@obj.transChanged);
-            %set(displayGrid,'Heights',[-1,45]);
-                %}
             outputPanel = uix.Panel('Parent',optionBoxes,'Title','Output Options','Padding',5);
                 %Create output option grid (1X3)
                 pdfGrid = uix.Grid('Parent',outputPanel,'Spacing',5,'Padding',5);  
@@ -191,7 +216,7 @@ classdef ReportPreviewer < handle
                 obj.eTypeChanged();
                 %3D model initialization
                 obj.sv3d.subjPath = obj.subjPath;
-                obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0}; 
+                obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0,1}; 
                 obj.onListSelection();
             end
             waitbar(1,wb,'Name','Done');
@@ -257,7 +282,7 @@ classdef ReportPreviewer < handle
             %3D model change as well (initialized)
             obj.sv3d.subjPath = obj.subjPath;
             %delete(obj.sv3d.Children(4))
-            obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0}; %3D model should be off at every change of subject
+            obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0,1}; %3D model should be off at every change of subject
             obj.buttonModelOff.Value = 1;
             
             %Change the title of the gui
@@ -428,17 +453,40 @@ classdef ReportPreviewer < handle
         function dotPressed(obj,~,~)
             obj.sv3d.CursorUpdate(2) = {'dot'};
         end
+        function smallPressed(obj,~,~)
+            obj.sv3d.CursorUpdate(3) = {20};
+        end
+        function mediumPressed(obj,~,~)
+            obj.sv3d.CursorUpdate(3) = {50};
+        end
+        function largePressed(obj,~,~)
+            obj.sv3d.CursorUpdate(3) = {80};
+        end
         function modelOnPressed(obj,~,~)
             if(obj.buttonModelOn.Value == 1)
                 obj.sv3d.ModelSettings(1) = {'on'};
                 if(~isempty(obj.sv3d.Slice3DErrorMessage))
-                    obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0};
+                    obj.sv3d.ModelSettings = {'off',obj.StripInfo(1,:),0,0,1};
                     obj.buttonModelOff.Value = 1;
                 end
             else
                 obj.sv3d.ModelSettings(1) = {'off'};
             end
         end
+        function TransparencyOnPressed(obj,~,~)
+            if obj.TransparencyOn.Value == 1
+                obj.sv3d.ModelSettings(5) = {0.4};
+            else
+                obj.sv3d.ModelSettings(5) = {1};
+            end
+
+            % Flip off and on to reload model with correct transparency
+            if(obj.buttonModelOn.Value == 1)
+                obj.sv3d.ModelSettings(1) = {'off'};
+                obj.sv3d.ModelSettings(1) = {'on'};
+            end
+        end
+
         %Button group end
         
 
@@ -452,6 +500,9 @@ classdef ReportPreviewer < handle
             obj.isRunning = true;
            %% Creating Report from template
             %cd(fileparts(mfilename));
+            if isdeployed
+                makePPTCompilable();
+            end
             import mlreportgen.ppt.*;
             
             
@@ -473,8 +524,9 @@ classdef ReportPreviewer < handle
                 presentationTitleSlide = add(slides,'Title Slide');
             catch e
                 delete(wb);
-                errordlg(sprintf(['Check if [ %s ] is open, \n',...
-                    'if so, close it and try again.'],[obj.reportName{1},'.pptx']));
+                % errordlg(sprintf(['Check if [ %s ] is open, \n',...
+                %     'if so, close it and try again.'],[obj.reportName{1},'.pptx']));
+                errordlg(sprintf(e.message));
                 obj.isRunning = false;
                 return
             end
@@ -531,7 +583,7 @@ classdef ReportPreviewer < handle
             count = 1;
             %Add a slide
             Slice.Cursor = [0 0 0];
-            Slice.ModelSettings = [obj.sv3d.ModelSettings(1:2),{0},{0}];
+            Slice.ModelSettings = [obj.sv3d.ModelSettings(1:2),{0},{0},obj.sv3d.ModelSettings(5)];
             export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw','Origin'),'-png');
             %% Adding 3d model info into the beginning of the report
             v = figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
