@@ -210,9 +210,9 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                     box = obj.Parent;
                     hbox = box.Parent;
                     rotate3d off
-                    rotate3d(obj.Slice3D)
-%                     hManager = uigetmodemanager(hbox.Parent);
-%                     hManager.CurrentMode.ModeStateData.textState = 0;
+                    % rotate3d(obj.Slice3D)
+                    % hManager = uigetmodemanager(hbox.Parent);
+                    % hManager.CurrentMode.ModeStateData.textState = 0;
                     %fix end
                 end
                 return
@@ -275,9 +275,9 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                         box = obj.Parent;
                         hbox = box.Parent;
                         rotate3d off
-                        rotate3d(obj.Slice3D)
-                        %hManager = uigetmodemanager(hbox.Parent);
-                        %hManager.CurrentMode.ModeStateData.textState = 0;
+                        % rotate3d(obj.Slice3D)
+                        % hManager = uigetmodemanager(hbox.Parent);
+                        % hManager.CurrentMode.ModeStateData.textState = 0;
                         %fix end
                     end
                     waitbar(1,wb,'Complete');
@@ -325,9 +325,9 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                         box = obj.Parent;
                         hbox = box.Parent;
                         rotate3d off
-                        rotate3d(obj.Slice3D)
-%                         hManager = uigetmodemanager(hbox.Parent);
-%                         hManager.CurrentMode.ModeStateData.textState = 0;
+                        % rotate3d(obj.Slice3D)
+                        % hManager = uigetmodemanager(hbox.Parent);
+                        % hManager.CurrentMode.ModeStateData.textState = 0;
                         %fix end
                     end
                     waitbar(1,wb,'Complete');
