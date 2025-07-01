@@ -7,7 +7,7 @@ restoredefaultpath;
 
 addpath(genpath('./Major-programs'));
 addpath(genpath('./Nifti-toolbox'));
-addpath(genpath('./GUI Layout Toolbox'));
+addpath(genpath('./GUI-Layout-Toolbox'));
 addpath(genpath('./other-toolbox/export_fig'));
 addpath(genpath('./freesurfer-toolbox'));
 
