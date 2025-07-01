@@ -3,8 +3,6 @@
 close all;
 clearvars;
 
-restoredefaultpath;
-
 addpath(genpath('./Major-programs'));
 addpath(genpath('./Nifti-toolbox'));
 addpath(genpath('./GUI-Layout-Toolbox'));
