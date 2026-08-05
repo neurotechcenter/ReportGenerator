@@ -517,7 +517,27 @@ classdef ReportPreviewer < handle
             wb = waitbar(0,'Loading from template...');
             slidesFile =fullfile(obj.subjPath,[obj.reportName{1},'.pptx']);% *****
             obj.OutPath=slidesFile;
-            slides = Presentation(slidesFile,fullfile(fileparts(mfilename('fullpath')),'SubjectReport-template'));
+            % In a compiled app, SubjectReport-template.pptx is bundled via
+            % mcc's -a as a single file, not a folder - MATLAB Compiler's
+            % documented (but not guaranteed-by-mfilename) placement of
+            % such files inside ctfroot() has historically been a source of
+            % surprises, so this looks it up directly under ctfroot()
+            % rather than assuming fileparts(mfilename('fullpath')) still
+            % lines up with wherever mcc actually put it. Non-deployed
+            % behavior (running from source) is unchanged.
+            if isdeployed
+                templateMatches = dir(fullfile(ctfroot, '**', 'SubjectReport-template.pptx'));
+                if isempty(templateMatches)
+                    delete(wb);
+                    error('ReportPreviewer:missingTemplate', ...
+                        ['SubjectReport-template.pptx was not found anywhere under ctfroot (%s). ', ...
+                         'It must be bundled into the build via -a - see BuildStandaloneVERAApp.m.'], ctfroot);
+                end
+                templatePath = fullfile(templateMatches(1).folder, 'SubjectReport-template');
+            else
+                templatePath = fullfile(fileparts(mfilename('fullpath')), 'SubjectReport-template');
+            end
+            slides = Presentation(slidesFile,templatePath);
             
             % Title page and related page of the summary pdf
             try
