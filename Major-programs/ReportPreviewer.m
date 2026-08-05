@@ -159,16 +159,26 @@ classdef ReportPreviewer < handle
                 
             outputPanel = uix.Panel('Parent',optionBoxes,'Title','Output Options','Padding',5);
                 %Create output option grid (1X3)
-                pdfGrid = uix.Grid('Parent',outputPanel,'Spacing',5,'Padding',5);  
-                uicontrol('Parent',pdfGrid,'Style','text','String','Additional PDF report');
+                pdfGrid = uix.Grid('Parent',outputPanel,'Spacing',5,'Padding',5);
+                pdfLabel = uicontrol('Parent',pdfGrid,'Style','text','String','Additional PDF report');
                 bgPDF = uibuttongroup('Parent',pdfGrid);
-                uicontrol('Parent',bgPDF,'Style','radiobutton','String','On',...
+                pdfOn = uicontrol('Parent',bgPDF,'Style','radiobutton','String','On',...
                                     'Position',[10,5,100,20]);
                 obj.pdfOff = uicontrol('Parent',bgPDF,'Style','radiobutton','String','Off',...
                                     'Position',[110,5,100,20]);
                 set(pdfGrid,'Widths',[-1,-2],'Heights',30);
                 set(bgPDF,'SelectedObject',obj.pdfOff);
-                
+                if ~ispc
+                    % PDF conversion drives Microsoft PowerPoint via COM
+                    % automation, which only exists on Windows - disable
+                    % the toggle rather than let it be selected and fail.
+                    pdfTooltip = ['PDF conversion requires Windows with ',...
+                        'Microsoft PowerPoint installed and is unavailable on this platform.'];
+                    set(pdfOn,'Enable','off','TooltipString',pdfTooltip);
+                    set(obj.pdfOff,'Enable','off','TooltipString',pdfTooltip);
+                    set(pdfLabel,'TooltipString',pdfTooltip);
+                end
+
             set(optionBoxes,'Heights',[-1,-1]);
             %End options tab with VBox
             %Create Electrode type tab
@@ -763,41 +773,73 @@ classdef ReportPreviewer < handle
                 sprintf('Generating the subject report powerpoint for this subject,\n it might take a few minutes...'));
             close(slides);
             delete(wb);
-            if ispc
-                winopen(slidesFile);
-            end
-           
             msgbox(sprintf('[ %s ] report generation completed',[obj.reportName{1},'.pptx']));
             if(obj.pdfOff.Value == 0)
+                % Convert to PDF before opening the pptx: opening it first
+                % via winopen would leave it locked open in an interactive
+                % PowerPoint window right as pdfConvertPressed drives a
+                % second PowerPoint COM session against the same file,
+                % which was a source of intermittent conversion failures.
                 obj.pdfConvertPressed();
+            elseif ispc
+                winopen(slidesFile);
             end
             obj.isRunning = false;
         end
 
         function pdfConvertPressed(obj,~,~)
-            % Additionaly generate a PDF
+            % Additionally generate a PDF from the just-created pptx by
+            % driving PowerPoint via COM automation (pptview/converttopdf).
+            % This only works on Windows with a valid PowerPoint install.
             [~,obj.subj]=fileparts(obj.subjPath);
-            %{
-            if(exist(fullfile(obj.subjPath,[obj.subj,'-summary.pptx']),'file')~=2)
-                errordlg(sprintf(['[ %s ] does not exist, \n',...
-                    'generate the subject report first and try again.'],[obj.subj '-summary.pptx']));
+            pptxFile = fullfile(obj.subjPath,[obj.reportName{1},'.pptx']);
+            pdfFile = fullfile(obj.subjPath,[obj.reportName{1},'.pdf']);
+
+            if ~ispc
+                errordlg(sprintf(['Unable to convert [ %s ] to PDF. \n',...
+                    'Convert to PDF is only available on PC and requires a valid Microsoft PowerPoint to be installed.'],[obj.reportName{1},'.pptx']));
                 return
             end
-            %}
-            wb = waitbar(0,sprintf('Generating PDF,\n it might take a few minutes...'));
-            
-            try
-                pptview(fullfile(obj.subjPath,[obj.reportName{1},'.pptx']),'converttopdf')
-            catch e
-                if(exist(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'file')~=2)
-                    delete(wb);
-                    errordlg(sprintf(['Unable to convert [ %s ] to PDF, \n',...
-                        'Convert to PDF is only available on PC and requires a valid Microsoft PowerPoint to be installed.'],[obj.reportName{1},'.pptx']));
-                    return
-                end
+
+            % Record the previous PDF's timestamp (if any) so a
+            % conversion that silently no-ops can be detected below
+            % instead of quietly reopening a stale, outdated PDF.
+            if exist(pdfFile,'file')==2
+                oldPdfInfo = dir(pdfFile);
+                oldPdfDatenum = oldPdfInfo.datenum;
+            else
+                oldPdfDatenum = -Inf;
             end
+
+            wb = waitbar(0,sprintf('Generating PDF,\n it might take a few minutes...'));
+
+            try
+                pptview(pptxFile,'converttopdf')
+            catch e
+                delete(wb);
+                errordlg(sprintf(['Unable to convert [ %s ] to PDF: \n%s \n',...
+                    'Convert to PDF is only available on PC and requires a valid Microsoft PowerPoint to be installed. \n',...
+                    'Check that PowerPoint is not already open on this file and try again.'],...
+                    [obj.reportName{1},'.pptx'], e.message));
+                return
+            end
+
+            if exist(pdfFile,'file')~=2
+                delete(wb);
+                errordlg(sprintf('PDF conversion of [ %s ] did not produce an output file.',[obj.reportName{1},'.pptx']));
+                return
+            end
+            newPdfInfo = dir(pdfFile);
+            if newPdfInfo.datenum <= oldPdfDatenum
+                delete(wb);
+                errordlg(sprintf(['PDF conversion of [ %s ] appears to have failed silently; \n',...
+                    'the existing PDF was not updated. Check that PowerPoint is not busy or \n',...
+                    'the file open elsewhere, then try again.'],[obj.reportName{1},'.pptx']));
+                return
+            end
+
             waitbar(1,wb,'Name','Opening PDF...');
-            rptview(fullfile(obj.subjPath,[obj.reportName{1},'.pdf']),'pdf')
+            rptview(pdfFile,'pdf')
             delete(wb);
         end
         
