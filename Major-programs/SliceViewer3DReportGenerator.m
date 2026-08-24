@@ -205,16 +205,6 @@ classdef SliceViewer3DReportGenerator < uix.Grid
             % if nothing needs to be ploted then leave the model blank
             if(obj.ModelSettings{3} == 0)
                 set(obj.Slice3D,'Parent',obj);
-                if(isequal(obj.rotate3D,'on'))
-                    %fix the rotate3d bug
-                    box = obj.Parent;
-                    hbox = box.Parent;
-                    rotate3d off
-                    % rotate3d(obj.Slice3D)
-                    % hManager = uigetmodemanager(hbox.Parent);
-                    % hManager.CurrentMode.ModeStateData.textState = 0;
-                    %fix end
-                end
                 return
             end
             %% part 3 button on
@@ -270,16 +260,6 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                     %camlight('headlight');
                     
                     set(obj.Slice3D,'Parent',obj);
-                    if(isequal(obj.rotate3D,'on'))
-                        %fix the rotate3d bug
-                        box = obj.Parent;
-                        hbox = box.Parent;
-                        rotate3d off
-                        % rotate3d(obj.Slice3D)
-                        % hManager = uigetmodemanager(hbox.Parent);
-                        % hManager.CurrentMode.ModeStateData.textState = 0;
-                        %fix end
-                    end
                     waitbar(1,wb,'Complete');
                     delete(wb)
                 end
@@ -320,16 +300,6 @@ classdef SliceViewer3DReportGenerator < uix.Grid
                     %camlight('headlight');
                     
                     set(obj.Slice3D,'Parent',obj);
-                    if(isequal(obj.rotate3D,'on'))
-                        %fix the rotate3d bug
-                        box = obj.Parent;
-                        hbox = box.Parent;
-                        rotate3d off
-                        % rotate3d(obj.Slice3D)
-                        % hManager = uigetmodemanager(hbox.Parent);
-                        % hManager.CurrentMode.ModeStateData.textState = 0;
-                        %fix end
-                    end
                     waitbar(1,wb,'Complete');
                     delete(wb)
                 else
