@@ -260,17 +260,18 @@ classdef ReportPreviewer < handle
                 return
             end
             imgDir = dir(fullfile(isPath,'**/*.img'));
+            mgzDir = dir(fullfile(isPath,'**/*.mgz'));
             errormessage = [];
-            if (isempty(imgDir))
+            if (isempty(imgDir) && isempty(mgzDir))
                 errormessage = [errormessage,...
-                    '\n--No Imaging file with (.img) format was found under the selected folder'];
+                    '\n--No Imaging file with (.img) or FreeSurfer (.mgz) format was found under the selected folder'];
             end
             dataDir = dir(fullfile(isPath,'**/*.dat'));
             if (isempty(dataDir))
                 errormessage = [errormessage,...
                     '\n--No Electrode file with (.dat) format was found under the selected folder \n'];
             end
-            if(isempty(imgDir)||isempty(dataDir))
+            if((isempty(imgDir)&&isempty(mgzDir))||isempty(dataDir))
                 errordlg(sprintf([errormessage,'Please check your subject folder']),'File Missing');
                 stats = 0;
                 return
