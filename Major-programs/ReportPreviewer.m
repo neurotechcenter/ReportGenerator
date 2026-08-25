@@ -614,6 +614,7 @@ classdef ReportPreviewer < handle
             %Add a slide
             Slice.Cursor = [0 0 0];
             Slice.ModelSettings = [obj.sv3d.ModelSettings(1:2),{0},{0},obj.sv3d.ModelSettings(5)];
+            drawnow
             export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw','Origin'),'-png','-nocrop');
             %% Adding 3d model info into the beginning of the report
             v = figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
@@ -741,7 +742,7 @@ classdef ReportPreviewer < handle
                     Slice.Cursor = electrodeCursor;
                     drawnow
                     Slice.ModelSettings(3:4) = {SliceGridIndex(count),SliceChIndex(count)};
-                    
+                    drawnow
                     export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw',elec_fileName),'-png','-nocrop');
                     catch e
                         delete(f);
