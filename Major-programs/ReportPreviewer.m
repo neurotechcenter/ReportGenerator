@@ -36,6 +36,7 @@ classdef ReportPreviewer < handle
         origContrast = []
         whichSlider
         isRunning = false
+        isStandalone = true
         pdfOff
         
         %variables for 3d grid modeling
@@ -59,6 +60,11 @@ classdef ReportPreviewer < handle
     methods
         function obj = ReportPreviewer(filePath)
             %% Create interface
+            % No filePath means this was launched via the standalone
+            % Startup_ReportGenerator.m entry point rather than passed a
+            % path by runGeneratorExternal.m (VERA), which already shows
+            % its own "report saved" notification.
+            obj.isStandalone = (nargin < 1);
             if(nargin < 1)
                 fileStats = obj.loadSubjectPath();
             else
@@ -774,7 +780,13 @@ classdef ReportPreviewer < handle
                 sprintf('Generating the subject report powerpoint for this subject,\n it might take a few minutes...'));
             close(slides);
             delete(wb);
-            msgbox(sprintf('[ %s ] report generation completed',[obj.reportName{1},'.pptx']));
+            if(obj.isStandalone)
+                % When run via runGeneratorExternal.m (VERA), the caller
+                % already shows its own "report saved" notification, so
+                % this is standalone-only to avoid a duplicate popup.
+                msgbox(sprintf('[ %s ] report generation completed.\n\nSaved to:\n%s',...
+                    [obj.reportName{1},'.pptx'],slidesFile),'Report Generated');
+            end
             if(obj.pdfOff.Value == 0)
                 % Convert to PDF before opening the pptx: opening it first
                 % via winopen would leave it locked open in an interactive
