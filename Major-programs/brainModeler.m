@@ -2,14 +2,24 @@ function [axModel,errormessage] = brainModeler(subjPath,axIn)
 addpath(genpath('./freesurfer-toolbox'));
 pathToLhPial=fullfile(subjPath,'/IMAGING/segmentation/surf/lh.pial');
 pathToRhPial=fullfile(subjPath,'/IMAGING/segmentation/surf/rh.pial');
+pathToOrigMgz=fullfile(subjPath,'/IMAGING/segmentation/mri/orig.mgz');
 %% error fetching
 errormessage = [];
+% The surface files are stored in FreeSurfer's "tkr" surface space; the
+% transform back to scanner RAS is fully determined by the geometry of
+% the conformed volume the recon was run on, so it's read straight from
+% orig.mgz (headeronly - only the affine is needed) instead of requiring
+% a precomputed IMAGING/MATLAB/xfrm_matrices file.
+vox2ras = [];
+vox2rastkr = [];
 try
-    xfrm_matrices=importdata(fullfile(subjPath,'/IMAGING/MATLAB/xfrm_matrices'));
+    mri = MRIread(pathToOrigMgz,1);
+    vox2ras = mri.vox2ras0;
+    vox2rastkr = mri.tkrvox2ras;
 catch e
     errormessage = [errormessage,...
-        sprintf('---Missing transformation matrices [xfrm_matrices] in path: \n\t%s\n\n',...
-        fullfile(subjPath,'/IMAGING/MATLAB/'))];
+        sprintf('---Missing FreeSurfer volume [orig.mgz] in path: \n\t%s\n\n',...
+        fullfile(subjPath,'/IMAGING/segmentation/mri/'))];
 end
 try
     [LHtempvert, LHtemptri] = read_surf(pathToLhPial);
@@ -31,12 +41,6 @@ end
 
 if(isempty(errormessage))
      %% 3D modeling
-    vox2ras = xfrm_matrices(1:4, :);
-    vox2rastkr = xfrm_matrices(5:8, :);
-
-    % [~,vox2ras]=system(['mri_info --vox2ras ' fullfile(segmentationFolder,'SUBJECT','')] );
-    % [~,vox2rastkr]=system(['mri_info --vox2ras-tkr ' fullfile(segmentationFolder,'SUBJECT','')] );%3d model is in ras-tkr format, we want RAS coordinates
-
     tkr2ras=vox2ras*inv(vox2rastkr);
     %[LHtempvert, LHtemptri] = read_surf(pathToLhPial);
     %[RHtempvert, RHtemptri] = read_surf(pathToRhPial);
