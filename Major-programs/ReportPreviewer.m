@@ -36,6 +36,7 @@ classdef ReportPreviewer < handle
         origContrast = []
         whichSlider
         isRunning = false
+        isStandalone = true
         pdfOff
         
         %variables for 3d grid modeling
@@ -59,6 +60,11 @@ classdef ReportPreviewer < handle
     methods
         function obj = ReportPreviewer(filePath)
             %% Create interface
+            % No filePath means this was launched via the standalone
+            % Startup_ReportGenerator.m entry point rather than passed a
+            % path by runGeneratorExternal.m (VERA), which already shows
+            % its own "report saved" notification.
+            obj.isStandalone = (nargin < 1);
             if(nargin < 1)
                 fileStats = obj.loadSubjectPath();
             else
@@ -254,17 +260,18 @@ classdef ReportPreviewer < handle
                 return
             end
             imgDir = dir(fullfile(isPath,'**/*.img'));
+            mgzDir = dir(fullfile(isPath,'**/*.mgz'));
             errormessage = [];
-            if (isempty(imgDir))
+            if (isempty(imgDir) && isempty(mgzDir))
                 errormessage = [errormessage,...
-                    '\n--No Imaging file with (.img) format was found under the selected folder'];
+                    '\n--No Imaging file with (.img) or FreeSurfer (.mgz) format was found under the selected folder'];
             end
             dataDir = dir(fullfile(isPath,'**/*.dat'));
             if (isempty(dataDir))
                 errormessage = [errormessage,...
                     '\n--No Electrode file with (.dat) format was found under the selected folder \n'];
             end
-            if(isempty(imgDir)||isempty(dataDir))
+            if((isempty(imgDir)&&isempty(mgzDir))||isempty(dataDir))
                 errordlg(sprintf([errormessage,'Please check your subject folder']),'File Missing');
                 stats = 0;
                 return
@@ -614,7 +621,8 @@ classdef ReportPreviewer < handle
             %Add a slide
             Slice.Cursor = [0 0 0];
             Slice.ModelSettings = [obj.sv3d.ModelSettings(1:2),{0},{0},obj.sv3d.ModelSettings(5)];
-            export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw','Origin'),'-png');
+            drawnow
+            export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw','Origin'),'-png','-nocrop');
             %% Adding 3d model info into the beginning of the report
             v = figure('units','normalized','outerposition',[1/3 0 2/3 1],'color','k','visible','off');
             axModel=axes(v,'Color','k');
@@ -741,8 +749,8 @@ classdef ReportPreviewer < handle
                     Slice.Cursor = electrodeCursor;
                     drawnow
                     Slice.ModelSettings(3:4) = {SliceGridIndex(count),SliceChIndex(count)};
-                    
-                    export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw',elec_fileName),'-png');
+                    drawnow
+                    export_fig(f,fullfile(obj.subjPath,'ReportFigures_raw',elec_fileName),'-png','-nocrop');
                     catch e
                         delete(f);
                         delete(wb);
@@ -773,7 +781,13 @@ classdef ReportPreviewer < handle
                 sprintf('Generating the subject report powerpoint for this subject,\n it might take a few minutes...'));
             close(slides);
             delete(wb);
-            msgbox(sprintf('[ %s ] report generation completed',[obj.reportName{1},'.pptx']));
+            if(obj.isStandalone)
+                % When run via runGeneratorExternal.m (VERA), the caller
+                % already shows its own "report saved" notification, so
+                % this is standalone-only to avoid a duplicate popup.
+                msgbox(sprintf('[ %s ] report generation completed.\n\nSaved to:\n%s',...
+                    [obj.reportName{1},'.pptx'],slidesFile),'Report Generated');
+            end
             if(obj.pdfOff.Value == 0)
                 % Convert to PDF before opening the pptx: opening it first
                 % via winopen would leave it locked open in an interactive

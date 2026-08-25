@@ -9,4 +9,6 @@ addpath(genpath('./GUI-Layout-Toolbox'));
 addpath(genpath('./other-toolbox/export_fig'));
 addpath(genpath('./freesurfer-toolbox'));
 
+showRequiredFolderStructure();
+
 Rp = ReportPreviewer();
