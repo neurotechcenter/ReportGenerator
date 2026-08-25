@@ -12,11 +12,20 @@ errormessage = [];
 % a precomputed IMAGING/MATLAB/xfrm_matrices file.
 vox2ras = [];
 vox2rastkr = [];
-try
-    mri = MRIread(pathToOrigMgz,1);
-    vox2ras = mri.vox2ras0;
-    vox2rastkr = mri.tkrvox2ras;
-catch e
+% Check existence ourselves rather than let MRIread hit a missing file:
+% its mgz reader shells out to gunzip looking for orig.mgz.gz before
+% giving up, which prints a raw gunzip error to the console even though
+% it's caught below and falls through to the IMAGING/brain.mat path.
+if exist(pathToOrigMgz,'file')==2
+    try
+        mri = MRIread(pathToOrigMgz,1);
+        vox2ras = mri.vox2ras0;
+        vox2rastkr = mri.tkrvox2ras;
+    catch e
+        % leave vox2ras/vox2rastkr empty; errormessage set below
+    end
+end
+if isempty(vox2ras) || isempty(vox2rastkr)
     errormessage = [errormessage,...
         sprintf('---Missing FreeSurfer volume [orig.mgz] in path: \n\t%s\n\n',...
         fullfile(subjPath,'/IMAGING/segmentation/mri/'))];
