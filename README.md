@@ -8,4 +8,4 @@ If you have encountered any unexpected errors, please include the error message 
 
 As an alternative to the MATLAB-based ReportGenerator integrated in VERA, this repository now contains pyreport, a lightweight commandline tool to generate similar reports.
 
-Requirements and instructions are detailed within the pyreport directory. For the generation of the brain surfaces, [PyBrain]{https://github.com/Noahbryson/PyBrain} is currently required. 
+Requirements and instructions are detailed within the pyreport directory. For the generation of the brain surfaces, [PyBrain](https://github.com/Noahbryson/PyBrain) is currently required. 
